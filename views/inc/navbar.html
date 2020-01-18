@@ -1,0 +1,45 @@
+<ul class="nav justify-content-center p-3">
+    <li class="nav-item"><a class="nav-link" href="/">LogoApp</a></li>
+    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+    <?php if(isset($_SESSION['first_name'])): ?>
+    <li class="nav-item">
+        <a class="nav-link disabled"><span>Bienvenido <?= $_SESSION['first_name']?>!</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/change_password.php">Cambiar mi contraseña</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/logout.php" onclick="return confirm('¿Deseas cerrar la sesión?');">Salir</a
+            class="nav-link">
+    </li>
+    <?php endif ?>
+    <li class="nav-item">
+        <button class="dark-switcher nav-link" title="Toggle Dark Mode">
+            <img src="img/moon.svg" class="theme-icon" alt="Dark Mode">
+        </button>
+    </li>
+</ul>
+
+<!-- <nav class="navbar navbar-expand-md">
+    <a class="navbar-brand" href="/"><span class="">PHPApp</span></a>
+    <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+        data-target="#navbar" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <?php if ( isset($_SESSION['user_id']) ): ?>
+        <ul class="navbar-nav mr-auto mt-2">
+            <li class="nav-item"><a class="nav-link" href="/quote.php">Quote</a></li>
+        </ul>
+        <ul class="navbar-nav ml-auto mt-2">
+            <li class="nav-item"><a class="nav-link" href="/logout.php"
+                    onclick="return confirm('¿Deseas cerrar la sesión?');">Salir</a></li>
+        </ul>
+        <?php else: ?>
+        <ul class="navbar-nav ml-auto mt-2">
+            <li class="nav-item"><a class="nav-link" href="/register.php">Crear cuenta</a></li>
+            <li class="nav-item"><a class="nav-link" href="/login.php">Iniciar sesión</a></li>
+        </ul>
+        <?php endif ?>
+    </div>
+</nav> -->

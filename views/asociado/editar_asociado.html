@@ -1,0 +1,102 @@
+<form action="" style="width: 100%;max-width: 730px;margin: auto;" method="POST">
+    <h1 class="mb-4">Editar registro</h1>
+
+    <div class="form-group">
+        <label for="apellido">Apellidos <span>*</span></label>
+        <input class="form-control <?= error_field('apellido', $errors); ?>" type="text" name="apellido" id="apellido" value="<?= $asoc['apellido'] ?>">
+        <div class="invalid-feedback"><?= $errors['apellido'] ?? '' ?></div>
+    </div>
+
+    <div class="form-group">
+        <label for="nombre">Nombre <span>*</span></label>
+        <input class="form-control <?= error_field('nombre', $errors); ?>" type="text" name="nombre" id="nombre" value="<?= $asoc['nombre'] ?>">
+        <div class="invalid-feedback"><?= $errors['nombre'] ?? '' ?></div>
+    </div>
+
+    <div class="form-group">
+        <label for="categoria">Categoría <span>*</span></label>
+        <select class="custom-select <?= error_field('categoria', $errors); ?>" name="categoria" id="categoria">
+            <option value="">Seleccione una categoría</option>
+            <option value="Activo" <?php if( isset($asoc['categoria']) && $asoc['categoria'] =='Activo' ) echo 'selected' ?>>ACTIVO</option>
+            <option value="Adherente" <?php if( isset($asoc['categoria']) && $asoc['categoria'] =='Adherente' ) echo 'selected' ?>>ADHERENTE</option>
+            <option value="Jubilado" <?php if( isset($asoc['categoria']) && $asoc['categoria'] =='Jubilado' ) echo 'selected' ?>>JUBILADO</option>
+        </select>
+        <div class="invalid-feedback"><?= $errors['categoria'] ?? '' ?></div>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Correo electrónico <span>*</span></label>
+        <input class="form-control <?= error_field('email', $errors); ?>" type="email" name="email" id="email" value="<?= $asoc['email'] ?>">
+        <div class="invalid-feedback"><?= $errors['email'] ?? '' ?></div>
+    </div>
+
+    <div class="form-group">
+        <label for="nro_tel_movil">Teléfono móvil (con código de área, sin espacios, puntos u otros símbolos) <span>*</span></label>
+        <input class="form-control <?= error_field('nro_tel_movil', $errors); ?>" type="text" name="nro_tel_movil" id="nro_tel_movil" value="<?= $asoc['nro_tel_movil'] ?>">
+        <div class="invalid-feedback"><?= $errors['nro_tel_movil'] ?? '' ?></div>
+    </div>
+    
+    <div class="form-group">
+        <label for="nro_tel_linea">Teléfono de línea (con código de área, sin espacios, puntos u otros símbolos)</label>
+        <input class="form-control <?= error_field('nro_tel_linea', $errors); ?>" type="text" name="nro_tel_linea" id="nro_tel_linea" value="<?= $asoc['nro_tel_linea'] ?>">
+        <div class="invalid-feedback"><?= $errors['nro_tel_linea'] ?? '' ?></div>
+    </div>
+
+    <div class="form-group">
+        <label for="domicilio">Domicilio <span>*</span></label>
+        <input class="form-control <?= error_field('domicilio', $errors); ?>" type="text" name="domicilio" id="domicilio" value="<?= $asoc['domicilio'] ?>">
+        <div class="invalid-feedback"><?= $errors['domicilio'] ?? '' ?></div>
+    </div>
+
+    <div class="form-group">
+        <label for="provincia">Provincia <span>*</span></label>
+        <!-- <select class="custom-select <?= error_field('provincia', $errors); ?>" name="provincia" id="provincia">
+            <option value disabled selected>Seleccione una provincia</option>
+        <?php //foreach($provincias as $provincia): ?>
+            <option value="<?php //$provincia['id_provincia'] ?>"><?php //$provincia['nombre'] ?></option>
+        <?php //endforeach ?>
+        </select> -->
+        <select class="custom-select" name="provincia" id="provincia">
+            <option value disabled selected>Seleccione una provincia</option>
+            <option value="1">BUENOS AIRES</option>
+            <option value="2">CATAMARCA</option>
+            <option value="3">CHACO</option>
+            <option value="4">CHUBUT</option>
+            <option value="5">CIUDAD AUTONOMA DE BUENOS AIRES</option>
+            <option value="6">CORDOBA</option>
+            <option value="7">CORRIENTES</option>
+            <option value="8">ENTRE RIOS</option>
+            <option value="9">FORMOSA</option>
+            <option value="10">JUJUY</option>
+            <option value="11">LA PAMPA</option>
+            <option value="12">LA RIOJA</option>
+            <option value="13">MENDOZA</option>
+            <option value="14">MISIONES</option>
+            <option value="15">NEUQUEN</option>
+            <option value="16">RIO NEGRO</option>
+            <option value="17">SALTA</option>
+            <option value="18">SAN JUAN</option>
+            <option value="19">SAN LUIS</option>
+            <option value="20">SANTA CRUZ</option>
+            <option value="21">SANTA FE</option>
+            <option value="22">SANTIAGO DEL ESTERO</option>
+            <option value="23">TIERRA DEL FUEGO</option>
+            <option value="24">TUCUMAN</option>
+        </select>
+        <div class="invalid-feedback"><?= $errors['provincia'] ?? '' ?></div>
+    </div>
+
+    <div class="form-group">
+        <label for="localidad">Localidad <span>*</span></label>
+        <select class="custom-select <?= error_field('localidad', $errors); ?>" name="localidad" id="localidad" disabled>
+            <option disabled selected>Seleccione una localidad</option>
+        </select>
+        <div class="invalid-feedback"><?= $errors['localidad'] ?? '' ?></div>
+    </div>
+
+    <div class="my-4">
+        <button type="submit">Editar registro</button>
+        <a href="/" class="float-right">Cancelar</a>
+    </div>
+    <!-- <p><a href="javascript:history.go(-1)" class="">Volver atrás</a></p> -->
+</form>

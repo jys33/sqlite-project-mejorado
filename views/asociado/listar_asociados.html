@@ -1,0 +1,44 @@
+<div style="font-size: 14px;">
+    <table id="dataTable" class="table table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%;">
+        <h1 class="mb-3">Asociado
+            <a href="/asociado_registrar.php" title="Alta de asociado">
+                <i class="material-icons" style="vertical-align: middle;">add_circle</i>
+            </a>
+        </h1>
+        <thead style="background-color: #113d76;color: #fff;">
+            <tr>
+            <?php foreach($headers as $header){ echo '<td>' . $header . '</td>'; } ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $id = 1; foreach($data as $val): ?>
+            <tr>
+                <td><?= $id++ ?></td>
+                <td><?= $val['nro_cuil'] ?></td>
+                <td><?= $val['apellido'] ?></td>
+                <td><?= $val['nombre'] ?></td>
+                <td><?= $val['genero'] ?></td>
+                <td><?= $val['tipo_documento'] ?></td>
+                <td><?= $val['nro_documento'] ?></td>
+                <td><?= $val['categoria'] ?></td>
+                <td><?= dateToView($val['fech_nacimiento']) ?></td>
+                <td><?= date('j/n/Y', strtotime($val['created_on']) ) ?></td>
+                <td><?= $val['email'] ?></td>
+                <td><?= $val['nro_tel_linea'] ?? ''; ?></td>
+                <td><?= $val['nro_tel_movil'] ?? ''; ?></td>
+                <td><?= $val['domicilio'] ?></td>
+                <td><?= $val['localidad'] ?></td>
+                <td><?= $val['cp'] ?></td>
+                <td><?= $val['provincia'] ?></td>
+                <td class="text-center">
+                    <a href="/asociado_editar.php?id_asociado=<?= $val['id_asociado'] ?>" title="Editar asociado"><i class="material-icons"
+                            style="color: orange;">edit</i></a>&nbsp;&nbsp;
+                    <a href="/asociado_eliminar.php?id_asociado=<?= $val['id_asociado'] ?>" title="Eliminar asociado"
+                        onclick="return confirm('¿Deseas eliminar el registro?');"><i class="material-icons"
+                            style="color: #dc143c;">delete</i></a>
+                </td>
+            </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+</div>

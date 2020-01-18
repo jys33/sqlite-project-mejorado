@@ -1,0 +1,4 @@
+# Oculta la carpeta, pero si queremos acceder a través de la ruta
+# nos mostrará ¡Acceso prohibido!
+Order Allow,Deny
+Deny from all
