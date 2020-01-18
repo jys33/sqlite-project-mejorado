@@ -1,36 +1,11 @@
 <?php
 
-// display errors, warnings, and notices
-ini_set("display_errors", true);
-error_reporting(E_ALL);
-
-require("../includes/helpers.php");
-require("../src/app/Db.php");
-require("../src/app/Flash.php");
-
-// enable sessions
-session_start();
-
-$pages = [
-    '/login.php',
-    '/logout.php',
-    '/register.php',
-    '/activate.php',
-    '/forgot_password.php'
-];
-
-// PHP_SELF: /forgot_password.php
-if ( !in_array($_SERVER["PHP_SELF"], $pages) ) {
-    
-    if (empty($_SESSION["user_id"])) {
-        redirect("login.php");
-    }
-}
+// configuration
+require("../includes/config.php");
 
 if (!empty($_SESSION["user_id"])) {
     redirect("/");
 }
-
 
 $title = "Olvidó su contraseña";
 $errors = [];
@@ -38,14 +13,12 @@ $user['user_email'] = '';
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $validEmail = '/^[\w.-]+@[\w.-]+\.[A-Za-z]{2,6}$/';
-
     if (empty($_POST['user_email'])) {
         $errors['user_email'] = 'Ingrese su correo electrónico.';
     } else {
         $user['user_email'] = test_input( $_POST['user_email'] );
 
-        if ( !checkFormat($validEmail, $user['user_email'], true) ) {
+        if ( !checkFormat($regexEmail, $user['user_email'], true) ) {
             $errors['user_email'] = '\''. $user['user_email'] . '\' no es una dirección de correo electrónico válida.';
         }
     }

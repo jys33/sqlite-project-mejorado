@@ -1,31 +1,7 @@
 <?php
 
-// display errors, warnings, and notices
-ini_set("display_errors", true);
-error_reporting(E_ALL);
-
-require("../includes/helpers.php");
-require("../src/app/Db.php");
-require("../src/app/Flash.php");
-
-// enable sessions
-session_start();
-
-$pages = [
-    '/login.php',
-    '/logout.php',
-    '/register.php',
-    '/activate.php',
-    '/reset_password.php'
-];
-
-// PHP_SELF: /change_password.php
-if ( !in_array($_SERVER["PHP_SELF"], $pages) ) {
-    
-    if (empty($_SESSION["user_id"])) {
-        redirect("login.php");
-    }
-}
+// configuration
+require("../includes/config.php");
 
 $errors = [];
 
@@ -57,9 +33,6 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST')
         $errors['new_password'] = 'Ingrese su nueva contraseña.';
     } else {
         $user['new_password'] = test_input( $_POST['new_password'] );
-
-        $minPasswordLength = 8;
-        $maxPasswordLength = 64;
 
         if(!checkLength($user['new_password'], $minPasswordLength, $maxPasswordLength) ){
             $errors['new_password'] = 'Su contraseña debe tener entre ' . $minPasswordLength . ' y ' . $maxPasswordLength . ' caracteres.';

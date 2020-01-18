@@ -1,5 +1,7 @@
 <?php
 
+require_once("constants.php");
+
 function test_input($data)
 {
     $data = removeSpaces($data);

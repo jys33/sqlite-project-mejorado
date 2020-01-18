@@ -8,28 +8,8 @@ https://es.khanacademy.org/computing/computer-programming/sql/modifying-database
 
 **SQL normal**
 
-INSERT INTO diary_logs (id, food, activity)VALUES (123, "ice cream", "running");
+INSERT INTO diary_logs (id, food, activity) VALUES (123, "ice cream", "running");
 
 **Python con la biblioteca de SQLAlchemy:**
 
 diary_logs.insert().values(id=123, food="ice cream", activity='running')
-
-**Ejemplo de función**
-
-function obtenerTelDeAsociado($id_asociado) {
-   
-   $q = 'SELECT nro_tel FROM telefono WHERE id_asociado = :id_asociado ;';
-   
-   $stmt = Db::getInstance()->prepare($q);
-   
-   if($stmt === false) return false;
-   
-   $data = [':id_asociado' => $id_asociado];
-   
-   $result = $stmt->execute($data);
-   
-   if (!$result) return false;
-   
-   return $stmt->fetchAll(PDO::FETCH_ASSOC);
-   
-}

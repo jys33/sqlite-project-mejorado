@@ -8,6 +8,8 @@ date_default_timezone_set('AMERICA/ARGENTINA/BUENOS_AIRES');
 mb_internal_encoding('UTF-8');
 setlocale(LC_TIME, 'es_RA.UTF-8');
 
+// requirements
+require("constants.php");
 require("../includes/helpers.php");
 require("../src/app/Db.php");
 require("../src/app/Flash.php");
@@ -24,11 +26,10 @@ $pages = [
     '/activate.php'
 ];
 
-// PHP_SELF: /register.php
+// PHP_SELF: /página.php no se encuentra en el array $pages entonces la condición se cumple
 if ( !in_array($_SERVER["PHP_SELF"], $pages) ) {
     
     if (empty($_SESSION["user_id"])) {
-        header("Location: login.php");
-        exit;
+        redirect("login.php");
     }
 }

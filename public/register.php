@@ -1,30 +1,7 @@
 <?php
 
-// display errors, warnings, and notices
-ini_set("display_errors", true);
-error_reporting(E_ALL);
-
-require("../includes/helpers.php");
-require("../src/app/Db.php");
-require("../src/app/Flash.php");
-
-// enable sessions
-session_start();
-
-$pages = [
-    '/login.php',
-    '/logout.php',
-    '/register.php'
-];
-
-// PHP_SELF: /register.php
-if ( !in_array($_SERVER["PHP_SELF"], $pages) ) {
-    
-    if (empty($_SESSION["user_id"])) {
-        header("Location: login.php");
-        exit;
-    }
-}
+// configuration
+require("../includes/config.php");
 
 if (!empty($_SESSION["user_id"])) {
     redirect("/");
@@ -39,16 +16,12 @@ $user['user_email'] = '';
 
 if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
 
-    $onlyLetters = '/^[a-zA-ZáéíóúÁÉÍÓÚÑñÜü ]+$/';
-    $validUser = '/^[a-z0-9-_]+$/i';
-    $validEmail = '/^[\w.-]+@[\w.-]+\.[A-Za-z]{2,6}$/';
-
     if (empty($_POST['last_name'])) {
         $errors['last_name'] = 'Ingrese su apellido.';
     } else {
         $user['last_name'] = test_input( $_POST['last_name'] );
 
-        if(!checkFormat($onlyLetters, $user['last_name'])) {
+        if(!checkFormat($regexOnlyLetters, $user['last_name'])) {
 	        $errors['last_name'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
 	    }
     }
@@ -58,7 +31,7 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
     } else {
         $user['first_name'] = test_input( $_POST['first_name'] );
 
-        if(!checkFormat($onlyLetters, $user['first_name'])) {
+        if(!checkFormat($regexOnlyLetters, $user['first_name'])) {
 	        $errors['first_name'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
 	    }
     }
@@ -68,12 +41,9 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
     } else {
         $user['user_name'] = test_input( $_POST['user_name'] );
 
-        $minUsernameLength = 3;
-        $maxUsernameLength = 20;
-
         if(!checkLength($user['user_name'], $minUsernameLength, $maxUsernameLength) ){
             $errors['user_name'] = 'Su nombre de usuario debe tener entre ' . $minUsernameLength . ' y ' . $maxUsernameLength . ' caracteres.';
-        } elseif(!checkFormat($validUser, $user['user_name'])) {
+        } elseif(!checkFormat($regexUser, $user['user_name'])) {
             $errors['user_name'] = 'Solo se permiten letras (a-z), números (0-9) y guiones(-, _).';
         }
     }
@@ -83,7 +53,7 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
     } else {
         $user['user_email'] = test_input( $_POST['user_email'] );
 
-        if ( !checkFormat($validEmail, $user['user_email'], true) ) {
+        if ( !checkFormat($regexEmail, $user['user_email'], true) ) {
             $errors['user_email'] = '\''. $user['user_email'] . '\' no es una dirección de correo electrónico válida.';
         }
     }
@@ -93,9 +63,6 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
         $errors['password'] = 'Ingrese su contraseña.';
     } else {
         $user['password'] = test_input( $_POST['password'] );
-
-        $minPasswordLength = 8;
-        $maxPasswordLength = 64;
 
         if(!checkLength($user['password'], $minPasswordLength, $maxPasswordLength) ){
             $errors['password'] = 'Su contraseña debe tener entre ' . $minPasswordLength . ' y ' . $maxPasswordLength . ' caracteres.';

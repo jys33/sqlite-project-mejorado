@@ -1,44 +1,18 @@
 <?php
 
-// display errors, warnings, and notices
-ini_set("display_errors", true);
-error_reporting(E_ALL);
-
-require("../includes/helpers.php");
-require("../src/app/Db.php");
-require("../src/app/Flash.php");
-
-// enable sessions
-session_start();
-
-$pages = [
-    '/login.php',
-    '/logout.php',
-    '/register.php',
-    '/activate.php'
-];
-
-// PHP_SELF: /activate.php
-if ( !in_array($_SERVER["PHP_SELF"], $pages) ) {
-    
-    if (empty($_SESSION["user_id"])) {
-        redirect("login.php");
-    }
-}
+// configuration
+require("../includes/config.php");
 
 if (!empty($_SESSION["user_id"])) {
     redirect("/");
 }
 
-$validEmail = '/^[\w.-]+@[\w.-]+\.[A-Za-z]{2,6}$/';
-$validKey = '/^[a-z0-9]{32}$/';
-
 $message = 'Lo sentimos no pudimos activar su cuenta!';
 
 if ( $_SERVER["REQUEST_METHOD"] == "GET"
     && isset($_GET['email'], $_GET['key'])
-    && checkFormat($validEmail, $_GET['email'], true)
-    && checkFormat($validKey, $_GET['key'])
+    && checkFormat($regexEmail, $_GET['email'], true)
+    && checkFormat($regexKey, $_GET['key'])
 ) {
     $useremail = test_input( $_GET['email'] );
     $activation_key = test_input( $_GET['key'] );

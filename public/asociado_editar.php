@@ -1,29 +1,7 @@
 <?php
 
-// display errors, warnings, and notices
-ini_set("display_errors", true);
-error_reporting(E_ALL);
-
-require("../includes/helpers.php");
-require("../src/app/Db.php");
-require("../src/app/Flash.php");
-
-// enable sessions
-session_start();
-
-$pages = [
-    '/login.php',
-    '/logout.php',
-    '/register.php'
-];
-
-// PHP_SELF: /asociado_editar.php
-if ( !in_array($_SERVER["PHP_SELF"], $pages) ) {
-    
-    if (empty($_SESSION["user_id"])) {
-        redirect("login.php");
-    }
-}
+// configuration
+require("../includes/config.php");
 
 $errors = [];
 $title = 'Editar asociado';
@@ -61,15 +39,12 @@ if ( $_SERVER["REQUEST_METHOD"] == "GET" )
 
 if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
 
-    $onlyLetters = '/^[a-zA-ZáéíóúÁÉÍÓÚÑñÜü ]+$/';
-    $validEmail = '/^[\w.-]+@[\w.-]+\.[A-Za-z]{2,6}$/';
-
     if (empty($_POST['apellido'])) {
         $errors['apellido'] = 'Ingrese el apellido.';
     } else {
         $asoc['apellido'] = test_input( $_POST['apellido'] );
 
-        if(!checkFormat($onlyLetters, $asoc['apellido'])) {
+        if(!checkFormat($regexOnlyLetters, $asoc['apellido'])) {
 	        $errors['apellido'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
 	    }
     }
@@ -79,7 +54,7 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
     } else {
         $asoc['nombre'] = test_input( $_POST['nombre'] );
 
-        if(!checkFormat($onlyLetters, $asoc['nombre'])) {
+        if(!checkFormat($regexOnlyLetters, $asoc['nombre'])) {
 	        $errors['nombre'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
 	    }
     }
@@ -95,7 +70,7 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
     } else {
         $asoc['email'] = test_input( $_POST['email'] );
 
-        if ( !checkFormat($validEmail, $asoc['email'], true) ) {
+        if ( !checkFormat($regexEmail, $asoc['email'], true) ) {
             $errors['email'] = '\''. $asoc['email'] . '\' no es una dirección de correo electrónico válida.';
         }
     }

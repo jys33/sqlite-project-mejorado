@@ -1,31 +1,7 @@
 <?php
 
-// display errors, warnings, and notices
-ini_set("display_errors", true);
-error_reporting(E_ALL);
-
-require("../includes/helpers.php");
-require("../src/app/Db.php");
-require("../src/app/Flash.php");
-
-// enable sessions
-session_start();
-
-$pages = [
-    '/login.php',
-    '/logout.php',
-    '/register.php',
-    '/activate.php',
-    '/reset_password.php'
-];
-
-// PHP_SELF: /reset_password.php
-if ( !in_array($_SERVER["PHP_SELF"], $pages) ) {
-    
-    if (empty($_SESSION["user_id"])) {
-        redirect("login.php");
-    }
-}
+// configuration
+require("../includes/config.php");
 
 if (!empty($_SESSION["user_id"])) {
     redirect("/");
@@ -33,15 +9,11 @@ if (!empty($_SESSION["user_id"])) {
 
 $title = 'Restablecer contraseña';
 
-// user_id=3
-// key=cf65f7f964865432e15deeac39d44668
-$validKey = '/^[a-z0-9]{32}$/';
-
 $errors = [];
 
 if( $_SERVER['REQUEST_METHOD'] == 'POST'
     && isPositiveInt( (int) $_POST['user_id'])
-    && checkFormat($validKey, $_POST['key'])
+    && checkFormat($regexKey, $_POST['key'])
 ) {
 
     $user['user_id'] = test_input( $_POST['user_id']);
@@ -52,9 +24,6 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST'
         $errors['new_password'] = 'Crea una contraseña.';
     } else {
         $user['new_password'] = test_input( $_POST['new_password'] );
-
-        $minPasswordLength = 8;
-        $maxPasswordLength = 64;
 
         if(!checkLength($user['new_password'], $minPasswordLength, $maxPasswordLength) ){
             $errors['new_password'] = 'Su contraseña debe tener entre ' . $minPasswordLength . ' y ' . $maxPasswordLength . ' caracteres.';
@@ -104,7 +73,7 @@ $message = 'Algo salió mal. Vuelva a comprobar el enlace o póngase en contacto
 if ( $_SERVER["REQUEST_METHOD"] == "GET"
     && isset($_GET['user_id'], $_GET['key'])
     && isPositiveInt( (int) $_GET['user_id'])
-    && checkFormat($validKey, $_GET['key'])
+    && checkFormat($regexKey, $_GET['key'])
 ) {
     $user['user_id'] = test_input( $_GET['user_id']);
 	$reset_key = test_input( $_GET['key']);

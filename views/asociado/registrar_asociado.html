@@ -109,7 +109,7 @@
             <option value="<?php //$provincia['id_provincia'] ?>"><?php //$provincia['nombre'] ?></option>
             <?php //endforeach ?>
         </select> -->
-        <select class="custom-select" name="provincia" id="provincia">
+        <select class="custom-select <?= error_field('provincia', $errors); ?>" name="provincia" id="provincia">
             <option value disabled selected>Seleccione una provincia</option>
             <option value="1">BUENOS AIRES</option>
             <option value="2">CATAMARCA</option>
@@ -166,7 +166,7 @@
     </div>
 
     <div class="my-4">
-        <button type="submit">Agregar registro</button>
+        <button class="btn btn-success" type="submit">Agregar registro</button>
         <a href="/" class="float-right">Cancelar</a>
     </div>
     <!-- <p><a href="javascript:history.go(-1)" class="">Volver atrás</a></p> -->
