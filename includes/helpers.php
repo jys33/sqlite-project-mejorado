@@ -266,3 +266,43 @@ function error_field ($title, array $errors) {
     }
     return '';
 }
+
+
+// método definido en asociado_registrar
+function insertarTelAsociado($id_asociado, $nro_tel, $tipo = 'movil')
+{
+    $q = 'INSERT INTO telefono (nro_tel, tipo, id_asociado) VALUES (?, ?, ?); ';
+
+    return Db::query($q, $nro_tel, $tipo, $id_asociado);
+}
+
+// Esta función esta definida en la página de registro.
+function getUserByEmail($useremail)
+{
+    $q = 'SELECT * FROM user WHERE user_email = ? ;';
+
+    return Db::query($q, $useremail);
+}
+
+/**
+ * funcion repetida en asociado editar
+ */
+function obtenerTelAsociado($id_asociado, $tipo = 'movil')
+{
+    $q = 'SELECT
+            nro_tel
+          FROM
+            telefono
+          WHERE  tipo = ?
+          AND id_asociado = ? ;';
+
+    $stmt = Db::getInstance()->prepare($q);
+
+    if($stmt === false) return false;
+
+    $result = $stmt->execute([$tipo, $id_asociado]);
+
+    if (!$result) return false;
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}

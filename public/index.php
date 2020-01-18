@@ -56,26 +56,3 @@ function obtenerTodosLosAsociados()
 
     return Db::query($q);
 }
-
-/**
- * funcion repetida en asociado editar
- */
-function obtenerTelAsociado($id_asociado, $tipo = 'movil')
-{
-    $q = 'SELECT
-            nro_tel
-          FROM
-            telefono
-          WHERE  tipo = ?
-          AND id_asociado = ? ;';
-
-    $stmt = Db::getInstance()->prepare($q);
-
-    if($stmt === false) return false;
-
-    $result = $stmt->execute([$tipo, $id_asociado]);
-
-    if (!$result) return false;
-
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}

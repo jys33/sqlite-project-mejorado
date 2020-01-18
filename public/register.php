@@ -142,13 +142,6 @@ function getUserByUsername($username)
     return Db::query($q, $username);
 }
 
-function getUserByEmail($useremail)
-{
-    $q = 'SELECT * FROM user WHERE user_email = ?;';
-
-    return Db::query($q, $useremail);
-}
-
 function createUser($user)
 {
     $q = 'INSERT INTO user (

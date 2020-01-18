@@ -81,14 +81,6 @@ require("../views/user/forgot_password.html");
 require("../views/inc/footer.html");
 
 
-// Esta función esta definida en la página de registro.
-function getUserByEmail($useremail)
-{
-    $q = 'SELECT * FROM user WHERE user_email = ? ;';
-
-    return Db::query($q, $useremail);
-}
-
 function createUniqueActivationCode($user_id, $reset_key)
 {
     $time = time();

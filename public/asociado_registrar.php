@@ -245,13 +245,6 @@ function insertarAsociado( $asociado )
     return true;
 }
 
-function insertarTelAsociado($id_asociado, $nro_tel, $tipo = 'movil')
-{
-    $q = 'INSERT INTO telefono (nro_tel, tipo, id_asociado) VALUES (?, ?, ?); ';
-
-    return Db::query($q, $nro_tel, $tipo, $id_asociado);
-}
-
 function obtenerTodasLasProvincias()
 {
     $q = 'SELECT * FROM provincia ;';

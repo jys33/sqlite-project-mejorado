@@ -179,26 +179,6 @@ function obtenerAsociadoPorId($id_asociado)
     return $asociado;
 }
 
-function obtenerTelAsociado($id_asociado, $tipo = 'movil')
-{
-    $q = 'SELECT
-            nro_tel
-          FROM
-            telefono
-          WHERE  tipo = ?
-          AND id_asociado = ? ;';
-
-    $stmt = Db::getInstance()->prepare($q);
-
-    if($stmt === false) return false;
-
-    $result = $stmt->execute([$tipo, $id_asociado]);
-
-    if (!$result) return false;
-
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
-
 function actualizarAsociado($asociado)
 {
     $q = 'UPDATE 
@@ -258,19 +238,4 @@ function updateTelAsociado($id_asociado, $nro_tel, $tipo = 'movil')
             AND tipo = ? ;';
           
     return Db::query($q, $nro_tel, $id_asociado, $tipo);
-}
-
-// método definido en asociado_registrar
-function insertarTelAsociado($id_asociado, $nro_tel, $tipo = 'movil')
-{
-    $q = 'INSERT INTO telefono (nro_tel, tipo, id_asociado) VALUES (?, ?, ?); ';
-
-    return Db::query($q, $nro_tel, $tipo, $id_asociado);
-}
-
-// método duplicado
-function getAllProvinces()
-{
-    $q = 'SELECT * FROM provincia ;';
-    return Db::query($q);
 }
