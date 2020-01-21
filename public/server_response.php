@@ -33,6 +33,7 @@ function getLocalitiesById($id_provincia)
     return Db::query($q, $id_provincia);
 }
 
+// Podemos enviarle los option ya creados
 function obtenerLocalidadesPorId($id_provincia){
     $q = 'SELECT * FROM localidad WHERE id_provincia = ? ORDER BY nombre ;';
     

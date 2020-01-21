@@ -96,15 +96,8 @@ if ( $_SERVER["REQUEST_METHOD"] == "GET"
     }
 }
 
-// render header
-require("../views/inc/header.html");
-
-// render template
-echo '<div class="text-center" style="width: 100%;max-width: 600px;margin: auto;margin-top: 200px;">
-<h3 style="font-weight: 400;">' . $message . '</h3></div>';
-
-// render footer
-require("../views/inc/footer.html");
+require("../views/error/error.html");
+exit;
 
 /**
  * Funciones de persistencia

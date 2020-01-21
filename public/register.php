@@ -81,7 +81,7 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
         if ($validPassword) {
             // Comparación segura a nivel binario sensible a mayúsculas y minúsculas.
             if (strcmp($user['password'], $user['confirm_password']) !== 0) {
-                $errors['confirm_password'] = 'Las contraseñas no coinciden.';
+                $errors['confirm_password'] = 'Las contraseñas que ingresó no coinciden.';
             }
         }
     }
