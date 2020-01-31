@@ -1,4 +1,4 @@
-<ul class="nav justify-content-center p-3">
+<!-- <ul class="nav justify-content-center p-3">
     <li class="nav-item"><a class="nav-link" href="/">Casa del Maestro</a></li>
     <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
     <?php if(isset($_SESSION['first_name'])): ?>
@@ -18,28 +18,44 @@
             <img src="img/moon.svg" class="theme-icon" alt="Dark Mode">
         </button>
     </li>
-</ul>
+</ul> -->
 
-<!-- <nav class="navbar navbar-expand-md">
-    <a class="navbar-brand" href="/"><span class="">PHPApp</span></a>
-    <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
-        data-target="#navbar" data-toggle="collapse" type="button">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbar">
-        <?php if ( isset($_SESSION['user_id']) ): ?>
-        <ul class="navbar-nav mr-auto mt-2">
-            <li class="nav-item"><a class="nav-link" href="/quote.php">Quote</a></li>
-        </ul>
-        <ul class="navbar-nav ml-auto mt-2">
-            <li class="nav-item"><a class="nav-link" href="/logout.php"
-                    onclick="return confirm('¿Deseas cerrar la sesión?');">Salir</a></li>
-        </ul>
-        <?php else: ?>
-        <ul class="navbar-nav ml-auto mt-2">
-            <li class="nav-item"><a class="nav-link" href="/register.php">Crear cuenta</a></li>
-            <li class="nav-item"><a class="nav-link" href="/login.php">Iniciar sesión</a></li>
-        </ul>
-        <?php endif ?>
+<nav class="navbar navbar-expand-md navbar-light">
+    <div class="container">
+        <a class="navbar-brand mb-1" href="/" style="font-weight: 600;"><span class="">Casa del Maestro</span></a>
+        <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            data-target="#navbar" data-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <?php if ( isset($_SESSION['user_id']) ): ?>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link active"><span>Bienvenido <?= $_SESSION['first_name']?>!</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout.php" onclick="return confirm('¿Deseas cerrar la sesión?');">Salir</a>
+                </li>
+                <li class="nav-item">
+                    <button class="dark-switcher nav-link" title="Toggle Dark Mode">
+                        <img src="img/moon.svg" class="theme-icon" alt="Dark Mode">
+                    </button>
+                </li>
+            </ul>
+            <?php else: ?>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/register.php">Crear cuenta</a></li>
+                <li class="nav-item"><a class="nav-link" href="/login.php">Iniciar sesión</a></li>
+                <li class="nav-item">
+                    <button class="dark-switcher nav-link" title="Toggle Dark Mode">
+                        <img src="img/moon.svg" class="theme-icon" alt="Dark Mode">
+                    </button>
+                </li>
+            </ul>
+            <?php endif ?>
+        </div>
     </div>
-</nav> -->
+</nav>

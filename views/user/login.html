@@ -8,7 +8,7 @@
     <?php endif ?>
 
     <div class="form-group">
-        <input class="form-control <?= error_field('user_name', $errors); ?>" type="text" name="user_name" id="user_name" placeholder="Nombre de usuario" value="<?= $user['user_name'] ?>">
+        <input class="form-control <?= error_field('user_name', $errors); ?>" type="text" name="user_name" id="user_name" placeholder="Nombre de Usuario" value="<?= $user['user_name'] ?>">
         <div class="invalid-feedback"><?= $errors['user_name'] ?? '' ?></div>
     </div>
 

@@ -22,8 +22,8 @@ function darkLightMode() {
     }
     document.body.classList.toggle('dark');
     if(querySelector('.table')) querySelector('.table').classList.toggle('table-dark');
-    // querySelector('.navbar').classList.toggle('navbar-dark');
-    // querySelector('.navbar').classList.toggle('navbar-light');
+    querySelector('.navbar').classList.toggle('navbar-dark');
+    querySelector('.navbar').classList.toggle('navbar-light');
     querySelector('.theme-icon').setAttribute('src', themeIcon);
     querySelector('.theme-icon').setAttribute('alt', alt + ' Mode');
 }

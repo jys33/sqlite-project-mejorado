@@ -85,8 +85,17 @@ function pass_gen(int $length = 8) : string
     return implode($pass);
 }
 
-function validatePasswordStrength($password)
+function validatePasswordStrength($password) // Caracteres se escribe sin acento
 {
+    // **REQUERIMIENTOS DE CONTRASEÑA DEL SITIO NETACAD.COM**
+    // New password must include:
+    // One upper case character => Un carácter en mayúscula
+    // One lower case character => Un carácter en minúscula
+    // One number character => Un carácter numérico
+    // Please enter a minimum of 8 characters and maximum of 60 characters. => Por favor, ingrese un mínimo de 8 caracteres y un máximo de 60 caracteres.
+    // No special characters, except these: @ . - _ ~ ! # $ % ^ & *
+    // Password cannot contain all or part of your email address
+
     // Validate password strength
     $uppercase = preg_match('@[A-Z]@', $password);
     $lowercase = preg_match('@[a-z]@', $password);
