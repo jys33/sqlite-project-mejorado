@@ -45,9 +45,9 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST') {
                 $subject = 'Restablecimiento de contraseña';
                 $headers = 'MIME-Version: 1.0' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                $headers .= 'From:App <noreply@app.com>' . "\r\n";
+                $headers .= 'From:Casa del Maestro <noreply@app.com>' . "\r\n";
                 $message = "Para restablecer su contraseña haga clic en el siguiente enlace:\n\n";
-                $message .= '<p><a href="http://localhost:8000/reset_password.php?user_id='. urlencode($user['user_id']) .'&key='. urlencode($reset_key) .'">Restablecer contraseña</a></p><p>El enlace expirará en 20 minutos.</p>';
+                $message .= '<p><a href="http://localhost:8000/user_reset_password.php?user_id='. urlencode($user['user_id']) .'&key='. urlencode($reset_key) .'">Restablecer contraseña</a></p><p>El enlace expirará en 20 minutos.</p>';
                 if( mail($to, $subject , $message, $headers) ) {
 
                     $message = 'Enviamos un correo electrónico a <b>' . $user['user_email'] . '</b>. Haz clic en el enlace que aparece en el correo para restablecer tu contraseña.
@@ -59,8 +59,8 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST') {
                 // render header
                 require("../views/inc/header.html");
 
-                echo '<div class="text-center" style="width: 100%;max-width: 600px;margin: auto;margin-top: 200px;text-align: justify;">
-                <h3 style="font-weight: 400;">' . $message . '</h3>
+                echo '<div class="" style="width: 100%;max-width: 600px;margin: auto;margin-top: 130px;text-align: justify;">
+                <h5 style="font-weight: 400;">' . $message . '</h5>
                 </div>';
 
                 // render header

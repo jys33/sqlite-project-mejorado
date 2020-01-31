@@ -18,18 +18,18 @@ require("../src/app/Flash.php");
 session_start();
 
 $pages = [
-    '/login.php',
-    '/logout.php',
-    '/register.php',
-    '/forgot_password.php',
-    '/reset_password.php',
-    '/activate.php'
+    '/user_activate.php',
+    '/user_login.php',
+    '/user_logout.php',
+    '/user_register.php',
+    '/user_forgot_password.php',
+    '/user_reset_password.php'
 ];
 
 // PHP_SELF: /página.php no se encuentra en el array $pages entonces la condición se cumple
 if ( !in_array($_SERVER["PHP_SELF"], $pages) ) {
     
     if (empty($_SESSION["user_id"])) {
-        redirect("login.php");
+        redirect("user_login.php");
     }
 }

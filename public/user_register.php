@@ -111,9 +111,9 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
                 $subject = 'Activación de cuenta';
                 $headers = 'MIME-Version: 1.0' . "\r\n";
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                $headers .= 'From:App <noreply@app.com>' . "\r\n";
+                $headers .= 'From:Casa del Maestro <noreply@app.com>' . "\r\n";
                 $message = "Para activar su cuenta haga clic en el siguiente enlace:\n\n";
-                $message .= '<p><a href="http://localhost:8000/activate.php?email='. urlencode($user['user_email']) .'&key='. urlencode($user['activation_key']) .'">Activar mi cuenta</a></p>';
+                $message .= '<p><a href="http://localhost:8000/user_activate.php?email='. urlencode($user['user_email']) .'&key='. urlencode($user['activation_key']) .'">Activar mi cuenta</a></p>';
                 if( mail($to, $subject , $message, $headers) ) {
                     Flash::addFlash('Se ha enviado un enlace para activar su cuenta a ' . $user['user_email'] . '.');
                     redirect('/');

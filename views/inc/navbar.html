@@ -33,11 +33,26 @@
                 <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Asociado</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown02">
+                        <a class="dropdown-item" href="/asociado_listar.php">Listar asociados</a>
+                        <a class="dropdown-item" href="/asociado_registrar.php">Registrar asociado</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="/user_change_password.php">Cambiar contraseña</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Another action</a>
+                    </div>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link active"><span>Bienvenido <?= $_SESSION['first_name']?>!</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout.php" onclick="return confirm('¿Deseas cerrar la sesión?');">Salir</a>
+                    <a class="nav-link" href="/user_logout.php" onclick="return confirm('¿Deseas cerrar la sesión?');">Salir</a>
                 </li>
                 <li class="nav-item">
                     <button class="dark-switcher nav-link" title="Toggle Dark Mode">
@@ -47,8 +62,8 @@
             </ul>
             <?php else: ?>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="/register.php">Crear cuenta</a></li>
-                <li class="nav-item"><a class="nav-link" href="/login.php">Iniciar sesión</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user_register.php">Crear cuenta</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user_login.php">Iniciar sesión</a></li>
                 <li class="nav-item">
                     <button class="dark-switcher nav-link" title="Toggle Dark Mode">
                         <img src="img/moon.svg" class="theme-icon" alt="Dark Mode">

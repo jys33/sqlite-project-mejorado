@@ -1,3 +1,9 @@
+/* RESET STYLES */
+*:hover, *:focus, *:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
 body {
     /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
     background-color: #F8F9FA;
@@ -55,4 +61,18 @@ label {
         padding-right: 1rem;
         padding-left: 1rem;
     }
+}
+
+.form-control:focus {
+    border-color: #1a73e8;
+    border-width: 2px;
+}
+
+/*Hacer el checkbox más grande*/
+.checkbox {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top: 2.5px;
+    margin: 0;
 }

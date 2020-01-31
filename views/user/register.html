@@ -34,18 +34,24 @@
 
     <div class="form-group">
         <label for="password">Contraseña <span>*</span></label>
-        <input class="form-control <?= error_field('password', $errors); ?>" type="text" name="password" id="password">
+        <input class="form-control <?= error_field('password', $errors); ?>" type="password" name="password" id="register-password">
         <div class="invalid-feedback"><?= $errors['password'] ?? '' ?></div>
     </div>
 
     <div class="form-group">
         <label for="confirm_password">Confirmar contraseña <span>*</span></label>
-        <input class="form-control <?= error_field('user_name', $errors); ?>" type="text" name="confirm_password" id="confirm_password">
+        <input class="form-control <?= error_field('user_name', $errors); ?>" type="password" name="confirm_password" id="register-confirm-password">
         <div class="invalid-feedback"><?= $errors['confirm_password'] ?? '' ?></div>
+    </div>
+
+    <!-- Mostrar contraseñas -->
+    <div class="form-group">
+        <input class="checkbox" type="checkbox" name="" id="show-register-password" onclick="showRegisterPasswords()">
+        <label for="show-register-password" style="font-weight: normal;"> Mostrar contraseña</label>
     </div>
 
     <div class="my-4">
         <button class="btn btn-success" type="submit">Registrar</button>
     </div>
-    <p class="text-center">¿Ya tienes una cuenta?<a href="/login.php"> Ingresar</a></p>
+    <p class="text-center">¿Ya tienes una cuenta?<a href="/user_login.php"> Iniciar sesión</a></p>
 </form>
