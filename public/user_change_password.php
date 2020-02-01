@@ -7,7 +7,7 @@ $errors = [];
 
 $title = 'Cambiar contraseña';
 
-if ( $_SERVER['REQUEST_METHOD'] == 'POST')
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 
     if (empty($_POST['current_password']) ) {
@@ -80,13 +80,6 @@ require("../views/inc/footer.html");
 /**
  * Funciones de persistencia
  */
-function getUserById($user_id)
-{
-    $q = 'SELECT * FROM user WHERE user_id = ? ;';
-
-    return Db::query($q, $user_id);
-}
-
 function updateUserPassword($password, $user_id)
 {
     $q = 'UPDATE user

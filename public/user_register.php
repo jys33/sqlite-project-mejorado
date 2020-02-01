@@ -9,10 +9,7 @@ if (!empty($_SESSION["user_id"])) {
 
 $title = "Registro de usuario";
 $errors = [];
-$user['last_name'] = '';
-$user['first_name'] = '';
-$user['user_name'] = '';
-$user['user_email'] = '';
+$user['last_name'] = $user['first_name'] = $user['user_name'] = $user['user_email'] = $user['password'] = $user['confirm_password'] = '';
 
 if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
 
@@ -86,6 +83,7 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
         }
     }
 
+    // Si no hay errores
     if ( count($errors) == 0 ) {
 
         $res = getUserByUsername($user['user_name']);

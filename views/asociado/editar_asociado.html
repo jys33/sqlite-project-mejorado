@@ -3,13 +3,13 @@
 
     <div class="form-group">
         <label for="apellido">Apellidos <span>*</span></label>
-        <input class="form-control <?= error_field('apellido', $errors); ?>" type="text" name="apellido" id="apellido" value="<?= $asoc['apellido'] ?>">
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('apellido', $errors); ?>" type="text" name="apellido" id="apellido" value="<?= $asoc['apellido'] ?>">
         <div class="invalid-feedback"><?= $errors['apellido'] ?? '' ?></div>
     </div>
 
     <div class="form-group">
         <label for="nombre">Nombre <span>*</span></label>
-        <input class="form-control <?= error_field('nombre', $errors); ?>" type="text" name="nombre" id="nombre" value="<?= $asoc['nombre'] ?>">
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('nombre', $errors); ?>" type="text" name="nombre" id="nombre" value="<?= $asoc['nombre'] ?>">
         <div class="invalid-feedback"><?= $errors['nombre'] ?? '' ?></div>
     </div>
 
@@ -26,37 +26,41 @@
 
     <div class="form-group">
         <label for="email">Correo electrónico <span>*</span></label>
-        <input class="form-control <?= error_field('email', $errors); ?>" type="email" name="email" id="email" value="<?= $asoc['email'] ?>">
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('email', $errors); ?>" type="email" name="email" id="email" value="<?= $asoc['email'] ?>">
         <div class="invalid-feedback"><?= $errors['email'] ?? '' ?></div>
     </div>
 
     <div class="form-group">
-        <label for="nro_tel_movil">Teléfono móvil (con código de área, sin espacios, puntos u otros símbolos) <span>*</span></label>
-        <input class="form-control <?= error_field('nro_tel_movil', $errors); ?>" type="text" name="nro_tel_movil" id="nro_tel_movil" value="<?= $asoc['nro_tel_movil'] ?>">
+        <label for="nro-tel-movil">Teléfono móvil (con código de área, sin espacios, puntos u otros símbolos) <span>*</span></label>
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('nro_tel_movil', $errors); ?>" type="text" name="nro_tel_movil" id="nro-tel-movil" value="<?= $asoc['nro_tel_movil'] ?>">
         <div class="invalid-feedback"><?= $errors['nro_tel_movil'] ?? '' ?></div>
     </div>
     
     <div class="form-group">
-        <label for="nro_tel_linea">Teléfono de línea (con código de área, sin espacios, puntos u otros símbolos)</label>
-        <input class="form-control <?= error_field('nro_tel_linea', $errors); ?>" type="text" name="nro_tel_linea" id="nro_tel_linea" value="<?= $asoc['nro_tel_linea'] ?>">
+        <label for="nro-tel-linea">Teléfono de línea (con código de área, sin espacios, puntos u otros símbolos)</label>
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('nro_tel_linea', $errors); ?>" type="text" name="nro_tel_linea" id="nro-tel-linea" value="<?= $asoc['nro_tel_linea'] ?>">
         <div class="invalid-feedback"><?= $errors['nro_tel_linea'] ?? '' ?></div>
     </div>
 
     <div class="form-group">
         <label for="domicilio">Domicilio <span>*</span></label>
-        <input class="form-control <?= error_field('domicilio', $errors); ?>" type="text" name="domicilio" id="domicilio" value="<?= $asoc['domicilio'] ?>">
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('domicilio', $errors); ?>" type="text" name="domicilio" id="domicilio" value="<?= $asoc['domicilio'] ?>">
         <div class="invalid-feedback"><?= $errors['domicilio'] ?? '' ?></div>
     </div>
 
     <div class="form-group">
         <label for="provincia">Provincia <span>*</span></label>
-        <!-- <select class="custom-select <?= error_field('provincia', $errors); ?>" name="provincia" id="provincia">
-            <option value disabled selected>Seleccione una provincia</option>
-        <?php //foreach($provincias as $provincia): ?>
-            <option value="<?php //$provincia['id_provincia'] ?>"><?php //$provincia['nombre'] ?></option>
-        <?php //endforeach ?>
-        </select> -->
         <select class="custom-select <?= error_field('provincia', $errors); ?>" name="provincia" id="provincia">
+            <option value disabled selected>Seleccione una provincia</option>
+        <?php foreach(getProvinces() as $provincia): ?>
+            <option value="<?= $provincia['id_provincia']; ?>"
+                    <?php if ($asoc['provincia'] == $provincia['nombre']): ?>
+                        selected="selected"
+                    <?php endif; ?>
+                    ><?= $provincia['nombre']; ?></option>
+        <?php endforeach ?>
+        </select>
+        <!-- <select class="custom-select <?= error_field('provincia', $errors); ?>" name="provincia" id="provincia">
             <option value disabled selected>Seleccione una provincia</option>
             <option value="1">BUENOS AIRES</option>
             <option value="2">CATAMARCA</option>
@@ -82,7 +86,7 @@
             <option value="22">SANTIAGO DEL ESTERO</option>
             <option value="23">TIERRA DEL FUEGO</option>
             <option value="24">TUCUMAN</option>
-        </select>
+        </select> -->
         <div class="invalid-feedback"><?= $errors['provincia'] ?? '' ?></div>
     </div>
 

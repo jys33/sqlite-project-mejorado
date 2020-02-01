@@ -7,9 +7,9 @@ if (!empty($_SESSION["user_id"])) {
     redirect("/");
 }
 
-$title = "Login";
+$title = "Iniciar sesión";
 $errors = [];
-$user['user_name'] = '';
+$user['user_name'] = $user['password'] = '';
 
 if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
 
@@ -56,11 +56,11 @@ function auth ($username, $password)
           AND
             activation = "activated";';
 
-    $users = Db::query($q, $username);
+    $rows = Db::query($q, $username);
 
-    if (count($users) == 1){
+    if (count($rows) == 1){
         // first (and only) row
-        $user = $users[0];
+        $user = $rows[0];
 
         if ( verifyPassword($password, $user['password']) ) {
 

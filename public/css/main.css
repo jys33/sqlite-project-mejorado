@@ -40,6 +40,7 @@ img.theme-icon{
 table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before{top:5px;}
 
 .custom-select:disabled{background-color: white;}
+.form-control:disabled{background-color: white;}
 
 label {
     font-size: 14px;
@@ -47,6 +48,7 @@ label {
     font-weight: 500;
 }
 
+/* Template Error*/
 .center {
     margin: 0;
     position: absolute;
@@ -63,16 +65,16 @@ label {
     }
 }
 
-.form-control:focus {
+.form-control:focus, .custom-select:focus {
     border-color: #1a73e8;
     border-width: 2px;
 }
 
 /*Hacer el checkbox más grande*/
 .checkbox {
-    width: 16px;
-    height: 16px;
+    /*width: 16px;
+    height: 16px;*/
     position: relative;
-    top: 2.5px;
+    top: 2px;
     margin: 0;
 }

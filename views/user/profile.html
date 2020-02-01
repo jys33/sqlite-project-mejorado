@@ -1,0 +1,39 @@
+<form action="" style="width: 100%;max-width: 620px;margin: auto;" method="POST">
+    <!-- <div class="text-center mb-4">
+        <a href="/"><img src="/img/cdm.svg" alt="" height="80"></a>
+    </div> -->
+
+    <div class="mb-4">
+        <h1 >Perfil de usuario</h1>
+        <p>Datos de usuario del sistema</p>
+    </div>
+
+    <div class="form-group">
+        <label for="last-name">Apellidos</label>
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('last_name', $errors); ?>" type="text" name="last_name" id="last-name" value="<?= $user['last_name'] ?>">
+        <div class="invalid-feedback"><?= $errors['last_name'] ?? '' ?></div>
+    </div>
+
+    <div class="form-group">
+        <label for="first-name">Nombre</label>
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('first_name', $errors); ?>" type="text" name="first_name" id="first-name" value="<?= $user['first_name'] ?>">
+        <div class="invalid-feedback"><?= $errors['first_name'] ?? '' ?></div>
+    </div>
+
+    <div class="form-group">
+        <label for="user-name">Nombre de usuario</label>
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('user_name', $errors); ?>" type="text" name="user_name" id="user-name" value="<?= $user['user_name'] ?>" disabled>
+        <div class="invalid-feedback"><?= $errors['user_name'] ?? '' ?></div>
+    </div>
+
+    <div class="form-group">
+        <label for="user-email">Correo electrónico</label>
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('user_email', $errors); ?>" type="email" name="user_email" id="user-email" value="<?= $user['user_email'] ?>" disabled>
+        <div class="invalid-feedback"><?= $errors['user_email'] ?? '' ?></div>
+    </div>
+
+    <div class="my-4">
+        <button class="btn btn-success" type="submit">Cuardar cambios</button>
+        <a href="/" style="float: right;padding: .5rem 0;">Cancelar</a>
+    </div>
+</form>

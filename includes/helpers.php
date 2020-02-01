@@ -242,6 +242,8 @@ function getAge($dateOfBirth)
 //     print "Port : $port\n";
 // }
 
+
+// Funciones copiadas de TodoList para muestra no utilizar
 function getUrlParam($name)
 {
     if (!array_key_exists($name, $_GET)) {
@@ -268,6 +270,7 @@ function getUserByGetId()
     }
     return $user;
 }
+// End
 
 function error_field ($title, array $errors) {
     if (array_key_exists ($title, $errors) ) {
@@ -314,4 +317,11 @@ function obtenerTelAsociado($id_asociado, $tipo = 'movil')
     if (!$result) return false;
 
     return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function getUserById($user_id)
+{
+    $q = 'SELECT * FROM user WHERE user_id = ? ;';
+
+    return Db::query($q, $user_id);
 }

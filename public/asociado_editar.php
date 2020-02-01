@@ -239,3 +239,13 @@ function updateTelAsociado($id_asociado, $nro_tel, $tipo = 'movil')
           
     return Db::query($q, $nro_tel, $id_asociado, $tipo);
 }
+
+function getProvinces()
+{
+    $q = 'SELECT * FROM provincia ;';
+    return Db::query($q);
+}
+
+// echo '<pre>';
+// print_r(getProvinces());
+// echo '</pre>';

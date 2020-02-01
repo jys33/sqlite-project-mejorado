@@ -11,7 +11,7 @@ $title = "Olvidó su contraseña";
 $errors = [];
 $user['user_email'] = '';
 
-if( $_SERVER['REQUEST_METHOD'] == 'POST') {
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (empty($_POST['user_email'])) {
         $errors['user_email'] = 'Ingrese su correo electrónico.';

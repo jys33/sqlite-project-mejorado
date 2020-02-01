@@ -1,19 +1,20 @@
 <form action="" style="width: 100%;max-width: 330px;margin: auto;" method="POST">
     <div class="text-center mb-4">
-        <img src="/img/cdm.svg" alt="" height="100">
+        <img src="/img/cdm.svg" alt="" height="80">
     </div>
     <h1 class="mb-4">Iniciar sesión</h1>
+    <!-- <p class="text-justify"><span style="font-weight: 500">*</span>Su nombre de usuario de identificación de inicio de sesión es el nombre de usuario con el que se registró.</p> -->
     <?php if(isset($errors['login_error'])): ?>
     <div class="alert alert-danger" role="alert"><?= $errors['login_error'] ?></div>
     <?php endif ?>
 
     <div class="form-group">
-        <input class="form-control <?= error_field('user_name', $errors); ?>" type="text" name="user_name" id="user_name" placeholder="Nombre de Usuario" value="<?= $user['user_name'] ?>">
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('user_name', $errors); ?>" type="text" name="user_name" id="user-name" placeholder="Nombre de Usuario" value="<?= $user['user_name'] ?>">
         <div class="invalid-feedback"><?= $errors['user_name'] ?? '' ?></div>
     </div>
 
     <div class="form-group">
-        <input class="form-control <?= error_field('password', $errors); ?>" type="password" name="password" id="login-password" placeholder="Contraseña">
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('password', $errors); ?>" type="password" name="password" id="login-password" placeholder="Contraseña" value="<?= $user['password'] ?>">
         <div class="invalid-feedback"><?= $errors['password'] ?? '' ?></div>
     </div>
 
