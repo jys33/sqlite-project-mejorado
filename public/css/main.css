@@ -39,6 +39,7 @@ img.theme-icon{
 
 table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before{top:5px;}
 
+/* Estilos de input desabilitados */
 .custom-select:disabled{background-color: white;}
 .form-control:disabled{background-color: white;}
 
@@ -66,7 +67,7 @@ label {
 }
 
 .form-control:focus, .custom-select:focus {
-    border-color: #1a73e8;
+    border-color: #1a73e8; /*1a73e8*/
     border-width: 2px;
 }
 
@@ -77,4 +78,12 @@ label {
     position: relative;
     top: 2px;
     margin: 0;
+}
+
+/* Mostrar contraseña */
+.custom-control-input:focus~.custom-control-label::before {box-shadow: none;}
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #007bff;
+    background-color: #007bff;
 }

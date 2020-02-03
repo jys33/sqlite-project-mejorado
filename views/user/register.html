@@ -1,62 +1,56 @@
-<form action="" style="width: 100%;max-width: 500px;margin: auto;" method="POST">
+<form action="" style="width: 100%;max-width: 370px;margin: auto;" method="POST">
     <div class="text-center mb-4">
         <a href="/"><img src="/img/cdm.svg" alt="" height="80"></a>
     </div>
 
     <div class="mb-4">
         <h1 >Registro de usuario</h1>
-        <p>Ingrese sus datos para registrarse y poder hacer uso de la aplicación.</p>
     </div>
 
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="last-name">Apellidos <span>*</span></label>
-            <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('last_name', $errors); ?>" type="text" name="last_name" id="last-name" value="<?= $user['last_name'] ?>">
+            <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('last_name', $errors); ?>" type="text" name="last_name" id="last-name" value="<?= $user['last_name'] ?>" placeholder="Apellidos">
             <div class="invalid-feedback"><?= $errors['last_name'] ?? '' ?></div>
         </div>
 
         <div class="form-group col-md-6">
-            <label for="first-name">Nombre <span>*</span></label>
-            <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('first_name', $errors); ?>" type="text" name="first_name" id="first-name" value="<?= $user['first_name'] ?>">
+            <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('first_name', $errors); ?>" type="text" name="first_name" id="first-name" value="<?= $user['first_name'] ?>" placeholder="Nombre">
             <div class="invalid-feedback"><?= $errors['first_name'] ?? '' ?></div>
         </div>
     </div>
-
+    
     <div class="form-group">
-        <label for="user-name">Nombre de usuario <span>*</span></label>
-        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('user_name', $errors); ?>" type="text" name="user_name" id="user-name" value="<?= $user['user_name'] ?>">
-        <div class="invalid-feedback"><?= $errors['user_name'] ?? '' ?></div>
-    </div>
-
-    <div class="form-group">
-        <label for="user-email">Correo electrónico <span>*</span></label>
-        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('user_email', $errors); ?>" type="email" name="user_email" id="user-email" value="<?= $user['user_email'] ?>">
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('user_email', $errors); ?>" type="email" name="user_email" id="user-email" value="<?= $user['user_email'] ?>" placeholder="Correo electrónico">
         <div class="invalid-feedback"><?= $errors['user_email'] ?? '' ?></div>
     </div>
 
+    <div class="form-group">
+        <small id="usernameHelpBlock" class="form-text mb-1">Puedes utilizar letras y números.</small>
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('user_name', $errors); ?>" type="text" name="user_name" id="user-name" value="<?= $user['user_name'] ?>" placeholder="Nombre de usuario">
+        <div class="invalid-feedback"><?= $errors['user_name'] ?? '' ?></div>
+    </div>
+
+    <small id="passwordHelpBlock" class="form-text mb-1">Utiliza ocho caracteres como mínimo con una combinación de letras, números y símbolos.</small>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="register-password">Contraseña <span>*</span></label>
-            <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('password', $errors); ?>" type="password" name="password" id="register-password" value="<?= $user['password'] ?>">
+            <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('password', $errors); ?>" type="password" name="password" id="register-password" value="<?= $user['password'] ?>" placeholder="Contraseña" aria-describedby="passwordHelpBlock">
             <div class="invalid-feedback"><?= $errors['password'] ?? '' ?></div>
         </div>
 
         <div class="form-group col-md-6">
-            <label for="register-confirm-password">Confirmar contraseña <span>*</span></label>
-            <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('confirm_password', $errors); ?>" type="password" name="confirm_password" id="register-confirm-password" value="<?= $user['confirm_password'] ?>">
+            <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('confirm_password', $errors); ?>" type="password" name="confirm_password" id="register-confirm-password" value="<?= $user['confirm_password'] ?>" placeholder="Confirmación" aria-describedby="passwordHelpBlock">
             <div class="invalid-feedback"><?= $errors['confirm_password'] ?? '' ?></div>
         </div>
     </div>
 
     <!-- Mostrar contraseñas -->
-    <div class="form-group">
-        <input class="checkbox" type="checkbox" name="" id="show-register-password" onclick="showRegisterPasswords()">
-        <label for="show-register-password" style="font-weight: normal;"> Mostrar contraseña</label>
+    <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="show-register-password" onclick="showRegisterPasswords()">
+        <label class="custom-control-label" for="show-register-password">Mostrar contraseña</label>
     </div>
 
-    <div class="my-4">
-        <button class="btn btn-success" type="submit">Registrar</button>
-        <a href="/" style="float: right;padding: .5rem 0;">Cancelar</a>
+    <div class="form-group mt-4">
+        <a href="/user_login.php" class="btn btn-link pl-0">Prefiero iniciar sesión</a>
+        <button type="submit" class="btn btn-primary float-right" id="btn">Registrarme</button>
     </div>
-    <p class="text-center">¿Ya tienes una cuenta?<a href="/user_login.php"> Iniciar sesión</a></p>
 </form>

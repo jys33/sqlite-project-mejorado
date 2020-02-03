@@ -1,4 +1,4 @@
-<form action="" style="width: 100%;max-width: 330px;margin: auto;" method="POST">
+<form action="" style="width: 100%;max-width: 370px;margin: auto;" method="POST">
     <div class="text-center mb-4">
         <img src="/img/cdm.svg" alt="" height="80">
     </div>
@@ -18,13 +18,13 @@
         <div class="invalid-feedback"><?= $errors['password'] ?? '' ?></div>
     </div>
 
-    <div class="form-group">
-        <input class="checkbox" type="checkbox" name="" id="show-login-password" onclick="showLoginPassword()">
-        <label for="show-login-password" style="font-weight: normal;"> Mostrar contraseña</label>
+    <div class="custom-control custom-switch">
+        <input class="custom-control-input" type="checkbox" name="" id="show-login-password" onclick="showLoginPassword()">
+        <label class="custom-control-label" for="show-login-password"> Mostrar contraseña</label>
     </div>
 
     <div class="my-4">
-        <button class="btn btn-success" type="submit">Ingresar</button>
+        <button class="btn btn-primary" type="submit">Ingresar</button>
         <a href="/user_forgot_password.php" style="float: right;padding: .5rem 0;">¿Has olvidado la contraseña?</a>
     </div>
     <p class="text-center">¿No tienes una cuenta?<a href="/user_register.php"> Regístrate</a></p>
