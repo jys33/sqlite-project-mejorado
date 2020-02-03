@@ -148,7 +148,7 @@
         <div class="invalid-feedback"><?= $errors['localidad'] ?? '' ?></div>
     </div>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="genero">Genero <span>*</span></label>
         <div class="custom-control custom-radio">
             <input type="radio" class="custom-control-input <?= error_field('genero', $errors); ?>" id="genero1"
@@ -163,11 +163,23 @@
             <label class="custom-control-label" for="genero2" style="font-weight: normal;">Masculino</label>
             <div class="invalid-feedback"><?= $errors['genero'] ?? '' ?></div>
         </div>
-    </div>
+    </div> -->
+    <fieldset class="form-group">
+        <legend style="font-size:initial;"> Sexo <span>*</span></legend>
+        <div class="custom-control custom-radio">
+            <input type="radio" id="genero1" name="genero" value="Femenino" class="custom-control-input <?= error_field('genero', $errors); ?>" <?php if(isset($asoc['genero']) && $asoc['genero'] == "Femenino") echo "checked"; ?>>
+            <label class="custom-control-label" for="genero1" style="font-weight: normal;">Femenino</label>
+        </div>
+        <div class="custom-control custom-radio">
+            <input type="radio" id="genero2" name="genero" value="Masculino" class="custom-control-input <?= error_field('genero', $errors); ?>" <?php if(isset($asoc['genero']) && $asoc['genero'] == "Masculino") echo "checked"; ?>>
+            <label class="custom-control-label" for="genero2" style="font-weight: normal;">Masculino</label>
+            <div class="invalid-feedback"><?= $errors['genero'] ?? '' ?></div>
+        </div>
+    </fieldset>
 
     <div class="my-4">
         <button class="btn btn-success" type="submit">Agregar registro</button>
-        <a href="/" class="float-right" style="padding: .5rem 0;">Cancelar</a>
+        <a href="/" class="btn btn-light ml-1">Cancelar</a>
     </div>
     <!-- <p><a href="javascript:history.go(-1)" class="">Volver atrás</a></p> -->
 </form>

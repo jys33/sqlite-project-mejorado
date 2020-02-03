@@ -5,8 +5,7 @@
 }
 
 body {
-    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-    background-color: #F8F9FA;
+    /* background-color: #F8F9FA; */
 }
 
 h1{font-size: 2rem;font-weight: 400;}
@@ -43,8 +42,8 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before{
 .custom-select:disabled{background-color: white;}
 .form-control:disabled{background-color: white;}
 
-label {
-    font-size: 14px;
+label, legend {
+    /* font-size: 14px; */
     margin-bottom: .25rem;
     font-weight: 500;
 }
@@ -82,8 +81,3 @@ label {
 
 /* Mostrar contraseña */
 .custom-control-input:focus~.custom-control-label::before {box-shadow: none;}
-.custom-control-input:checked~.custom-control-label::before {
-    color: #fff;
-    border-color: #007bff;
-    background-color: #007bff;
-}

@@ -18,17 +18,22 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
     } else {
         $user['last_name'] = test_input( $_POST['last_name'] );
 
-        if(!checkFormat($regexOnlyLetters, $user['last_name'])) {
+        if(!checkLength($user['last_name'], 2, 100) ){
+            $errors['last_name'] = '¿Seguro que has introducido el apellido correctamente?';
+        }elseif(!checkFormat($regexOnlyLetters, $user['last_name'])) {
 	        $errors['last_name'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
 	    }
     }
 
+    
     if (empty($_POST['first_name'])) {
         $errors['first_name'] = 'Ingrese su nombre.';
     } else {
         $user['first_name'] = test_input( $_POST['first_name'] );
 
-        if(!checkFormat($regexOnlyLetters, $user['first_name'])) {
+        if(!checkLength($user['first_name'], 2, 100) ){
+            $errors['first_name'] = '¿Seguro que has introducido el nombre correctamente?';
+        } elseif(!checkFormat($regexOnlyLetters, $user['first_name'])) {
 	        $errors['first_name'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
 	    }
     }
@@ -64,6 +69,7 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
         if(!checkLength($user['password'], $minPasswordLength, $maxPasswordLength) ){
             $errors['password'] = 'Su contraseña debe tener entre ' . $minPasswordLength . ' y ' . $maxPasswordLength . ' caracteres.';
         } elseif( !validatePasswordStrength($user['password']) ){
+            // "Elige una contraseña más segura. Prueba con una combinación de letras, números y símbolos."
             $errors['password'] = 'La contraseña debe incluir al menos una letra mayúscula, un número y un carácter especial.';
         } else {
             $validPassword = true;

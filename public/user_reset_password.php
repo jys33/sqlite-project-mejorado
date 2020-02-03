@@ -42,7 +42,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST'
         if ($validPassword) {
             // Comparación segura a nivel binario sensible a mayúsculas y minúsculas.
             if (strcmp($user['new_password'], $user['confirm_new_password']) !== 0) {
-                $errors['confirm_new_password'] = 'Las contraseñas no coinciden.';
+                $errors['confirm_new_password'] = 'Las contraseñas ingresadas no coinciden.';
             }
         }
     }
@@ -66,6 +66,10 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST'
     // render footer
     require("../views/inc/footer.html");
     exit;
+}
+
+if (empty($_GET['key']) && empty($_GET['user_id'])) {
+    redirect("/");
 }
 
 $message = 'Algo salió mal. Vuelva a comprobar el enlace o póngase en contacto con el administrador del sistema.';
