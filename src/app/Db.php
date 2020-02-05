@@ -5,7 +5,8 @@ class Db {
     private $conn = null;
     private static $_instance = null;
 
-    private function __construct() {
+    private function __construct()
+    {
         try {
             // $config = Config::getConfig('mysql');
             $dsn = 'sqlite:C:\Users\neo\Desktop\app\db\db.db'; // ruta absoluta
@@ -16,31 +17,39 @@ class Db {
                 PDO::ATTR_EMULATE_PREPARES => false
             ));
         } catch (PDOException $e) {
-            trigger_error('Error:' . $e->getMessage(), E_USER_ERROR);
+            trigger_error('Could not connect to database:' . $e->getMessage(), E_USER_ERROR);
             exit;
         }
     }
 
     // Devolvemos la conexión
-    private function getConnection() {
+    private function getConnection()
+    {
         return $this->conn;
     }
 
     // Magic method clone is empty to prevent duplication of connection
-    private function __clone() {}
+    private function __clone()
+    {
+        trigger_error('Clone is not allowed.', E_USER_ERROR);
+    }
     
+    public function __wakeup()
+    {
+        trigger_error('Deserializing is not allowed.', E_USER_ERROR);
+    }
+
     // close db connection
-    public function __destruct() {
+    public function __destruct()
+    {
         $this->conn = null;
     }
 
-    // Instanciamos la clase
-    public static function getInstance() {
-        //si no esta inicializada y no es distinta de NULL
-        if(!isset(self::$_instance)) {
-            self::$_instance = new Db();
+    public static function getInstance()
+    {
+        if (!self::$_instance instanceof self) {
+            self::$_instance = new self;
         }
-        // Despues de instanciar la clase, llamamos al método que devuelve la conexión.
         return self::$_instance->getConnection();
     }
 
