@@ -9,7 +9,7 @@ class Db {
     {
         try {
             // $config = Config::getConfig('mysql');
-            $dsn = 'sqlite:C:\Users\neo\Desktop\app\db\db.db'; // ruta absoluta
+            $dsn = 'sqlite:C:\Users\neo\Desktop\cdm\db\db.db'; // ruta absoluta
             // $dsn = 'mysql:host=localhost;dbname=db;charset=utf8mb4';
             $this->conn = new PDO($dsn, '', '', array(
                 PDO::ATTR_PERSISTENT => true,
@@ -67,7 +67,11 @@ class Db {
 
         $stmt = self::getInstance()->prepare($sql);
 
-        if ($stmt === false) return false;
+        if ($stmt === false) {
+            // trigger (big, orange) error
+            trigger_error(self::getInstance()->errorInfo()[2], E_USER_ERROR);
+            exit;
+        }
 
         $result = $stmt->execute($parameters);
 

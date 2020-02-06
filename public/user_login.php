@@ -10,6 +10,7 @@ if (!empty($_SESSION["user_id"])) {
 $title = "Iniciar sesión";
 $errors = [];
 $user['user_name'] = $user['password'] = '';
+$logonSuccess = true;
 
 if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
 
@@ -27,10 +28,11 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ) {
 
     if ( count($errors) == 0 ) {
         
-        if ( auth($user['user_name'], $user['password']) ) {
+        if ( authenticateUser($user['user_name'], $user['password']) ) {
             redirect('/');
         } else {
-            $errors['login_error'] = 'Nombre de usuario o contraseña no válidos o aún no ha activado su cuenta.';
+            $logonSuccess = false;
+            // $errors['login_error'] = 'Nombre de usuario o contraseña no válidos o aún no ha activado su cuenta.';
         }
     }
     
@@ -48,17 +50,17 @@ require("../views/inc/footer.html");
 /**
  * Funciones de persistencia
  */
-function auth ($username, $password)
+function authenticateUser ($username, $password)
 {
     $q = 'SELECT * FROM user
           WHERE
             user_name = ?
           AND
-            activation = "activated";';
+            activation = "activated"; ';
 
     $rows = Db::query($q, $username);
 
-    if (count($rows) == 1){
+    if (count($rows) == 1) {
         // first (and only) row
         $user = $rows[0];
 

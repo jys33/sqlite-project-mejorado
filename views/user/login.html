@@ -2,10 +2,14 @@
     <div class="text-center mb-4">
         <img src="/img/cdm.svg" alt="" height="80">
     </div>
-    <h1 class="mb-4">Iniciar sesión</h1>
-    <!-- <p class="text-justify"><span style="font-weight: 500">*</span>Su nombre de usuario de identificación de inicio de sesión es el nombre de usuario con el que se registró.</p> -->
-    <?php if(isset($errors['login_error'])): ?>
-    <div class="alert alert-danger" role="alert"><?= $errors['login_error'] ?></div>
+
+    <h1 class="mb-3">Iniciar sesión</h1>
+    <p class="text-justify"><span style="font-weight: 500">*</span>Su nombre de usuario de identificación de inicio de sesión es el nombre de usuario con el que se registró.</p>
+
+    <?php if (!$logonSuccess): ?>
+    <div class="alert alert-danger" role="alert">
+        Nombre de usuario o contraseña no válidos o aún no ha activado su cuenta.
+    </div>
     <?php endif ?>
 
     <div class="form-group">
