@@ -65,6 +65,7 @@ if( $_SERVER['REQUEST_METHOD'] == 'POST'
         
     // render footer
     require("../views/inc/footer.html");
+
     exit;
 }
 
@@ -94,7 +95,9 @@ if ( $_SERVER["REQUEST_METHOD"] == "GET"
             
         // render footer
         require("../views/inc/footer.html");
+
         exit;
+        
 	} else {
         $message = 'Credenciales no válidas o su contraseña ya fue restablecida!';
     }

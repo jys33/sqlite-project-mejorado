@@ -77,6 +77,8 @@ require("../views/user/change_password.html");
 // render footer
 require("../views/inc/footer.html");
 
+exit;
+
 /**
  * Funciones de persistencia
  */

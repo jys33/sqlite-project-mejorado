@@ -80,6 +80,8 @@ require("../views/user/forgot_password.html");
 // render footer
 require("../views/inc/footer.html");
 
+exit;
+
 
 function createUniqueActivationCode($user_id, $reset_key)
 {

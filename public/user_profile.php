@@ -57,6 +57,8 @@ require("../views/user/profile.html");
 // render footer
 require("../views/inc/footer.html");
 
+exit;
+
 /**
  * Funciones de persistencia
  */

@@ -1,5 +1,7 @@
 <?php
 
+$email = ['outlook', 'hotmail', 'gmail', 'yahoo'];
+
 session_start();
 
 if (empty($_SESSION['key'])) {

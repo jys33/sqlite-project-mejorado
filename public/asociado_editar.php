@@ -133,6 +133,8 @@ require("../views/asociado/editar_asociado.html");
 // render footer
 require("../views/inc/footer.html");
 
+exit;
+
 /**
  * Funciones de persistencia
  */

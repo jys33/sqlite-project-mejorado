@@ -13,8 +13,10 @@ require("constants.php");
 require("../includes/helpers.php");
 require("../src/app/Db.php");
 require("../src/app/Flash.php");
-
+// https://wiki.php.net/rfc/automatic_csrf_protection#dokuwiki__top
+// https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html
 // enable sessions
+session_name('ID');
 session_start();
 
 $pages = [

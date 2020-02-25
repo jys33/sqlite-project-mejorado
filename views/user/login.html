@@ -1,19 +1,19 @@
 <form action="" style="width: 100%;max-width: 370px;margin: auto;" method="POST">
-    <div class="text-center mb-4">
+    <!-- <div class="text-center mb-4">
         <img src="/img/cdm.svg" alt="" height="80">
-    </div>
+    </div> -->
 
     <h1 class="mb-3">Iniciar sesión</h1>
     <p class="text-justify"><span style="font-weight: 500">*</span>Su nombre de usuario de identificación de inicio de sesión es el nombre de usuario con el que se registró.</p>
 
     <?php if (!$logonSuccess): ?>
     <div class="alert alert-danger" role="alert">
-        Nombre de usuario o contraseña no válidos o aún no ha activado su cuenta.
+        Error de inicio de sesion; Nombre de usuario o contraseña no válidos o aún no ha activado su cuenta.
     </div>
     <?php endif ?>
 
     <div class="form-group">
-        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('user_name', $errors); ?>" type="text" name="user_name" id="user-name" placeholder="Nombre de Usuario" value="<?= $user['user_name'] ?>">
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('user_name', $errors); ?>" type="text" name="user_name" id="user-name" placeholder="Nombre de Usuario" value="<?= $user['user_name'] ?>" autofocus>
         <div class="invalid-feedback"><?= $errors['user_name'] ?? '' ?></div>
     </div>
 
@@ -26,6 +26,8 @@
         <input class="custom-control-input" type="checkbox" name="" id="show-login-password" onclick="showLoginPassword()">
         <label class="custom-control-label" for="show-login-password" style="font-weight: normal;"> Mostrar contraseña</label>
     </div>
+
+    <input type="hidden" name="csrftoken" value="<?php echo '' ?>">
 
     <div class="my-4">
         <button class="btn btn-primary" type="submit">Ingresar</button>

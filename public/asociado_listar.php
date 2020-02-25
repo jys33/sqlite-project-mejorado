@@ -25,6 +25,8 @@ require("../views/asociado/listar_asociados.html");
 // render footer
 require("../views/inc/footer.html");
 
+exit;
+
 /**
  * Funciones de persistencia
  */

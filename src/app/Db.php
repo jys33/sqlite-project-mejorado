@@ -1,6 +1,7 @@
 <?php
 
-class Db {
+class Db
+{
 
     private $conn = null;
     private static $_instance = null;
@@ -33,7 +34,7 @@ class Db {
     {
         trigger_error('Clone is not allowed.', E_USER_ERROR);
     }
-    
+
     public function __wakeup()
     {
         trigger_error('Deserializing is not allowed.', E_USER_ERROR);
@@ -75,16 +76,16 @@ class Db {
 
         $result = $stmt->execute($parameters);
 
-        if($result === false) return false;
+        if ($result === false) return false;
 
         if ($stmt->columnCount() > 0) {
-		    // return result set's rows
-		    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-		}
-		// if query was DELETE, INSERT, or UPDATE
-		else {
-		    // return number of rows affected
-		    return ($stmt->rowCount() == 1); // true o false
-		}
+            // return result set's rows
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        // if query was DELETE, INSERT, or UPDATE
+        else {
+            // return number of rows affected
+            return ($stmt->rowCount() == 1); // true o false
+        }
     }
 }
