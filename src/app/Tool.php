@@ -1,4 +1,5 @@
 <?php
+
 /**
  * https://www.the-art-of-web.com/php/password-strength/
  */
@@ -17,15 +18,14 @@ class Tools
     $ret = NULL;
     $command = "echo " . escapeshellarg($pw) . " | {$CRACKLIB}";
     exec($command, $out, $ret);
-    if(($ret == 0) && preg_match("/: ([^:]+)$/", $out[0], $regs)) {
+    if (($ret == 0) && preg_match("/: ([^:]+)$/", $out[0], $regs)) {
       list(, $msg) = $regs;
-      switch($msg)
-      {
+      switch ($msg) {
         case "OK":
-          if($score) {
+          if ($score) {
             $command = "echo " . escapeshellarg($pw) . " | {$PWSCORE}";
             exec($command, $out, $ret);
-            if(($ret == 0) && is_numeric($out[1])) {
+            if (($ret == 0) && is_numeric($out[1])) {
               return (int) $out[1]; // return score
             } else {
               return FALSE; // probably OK, but may be too short, or a palindrome
@@ -44,5 +44,4 @@ class Tools
 
     return FALSE; // possibly OK
   }
-
 }

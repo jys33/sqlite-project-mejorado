@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         transform: translate(-50%, -50%)">
 		<h1>Nicely centered</h1>
 		<p>This text block is vertically centered.
-		<p>Horizontally, too, if the window is wide enough.
+			<p>Horizontally, too, if the window is wide enough.
 	</section>
 
 	<div style="

@@ -29,19 +29,19 @@ function onChange() {
         if (Number.isInteger(id_provincia) && id_provincia > 0 && id_provincia < 25) {
             let parameters = "id_provincia=" + encodeURIComponent(id_provincia);
             makeAjaxCall("POST", "server_response.php?nocache=", mostrarLocalidades, parameters);
-        } else{
+        } else {
             listaDeLocalidades.setAttribute("disabled", true);
             listaDeLocalidades.options.length = 0;//elimina todos los elementos options
             return;
         }
-    } else{
+    } else {
         listaDeLocalidades.setAttribute("disabled", true);
         listaDeLocalidades.options.length = 0;//elimina todos los elementos options
         return;
     }
 }
 
-function mostrarLocalidades(){
+function mostrarLocalidades() {
     listaDeLocalidades.options.length = 0;
     defaultSelectOptions(listaDeLocalidades, "Seleccione una localidad");
     let newOption;
@@ -64,7 +64,7 @@ function mostrarLocalidades(){
     }
 }
 
-function getLocalities(){
+function getLocalities() {
     listaDeLocalidades.innerHTML = req.responseText;
 }
 

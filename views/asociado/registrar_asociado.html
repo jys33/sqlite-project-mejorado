@@ -3,21 +3,24 @@
 
     <div class="form-group">
         <label for="apellido">Apellidos <span>*</span></label>
-        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('apellido', $errors); ?>" type="text" name="apellido" id="apellido"
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
+            class="form-control <?= error_field('apellido', $errors); ?>" type="text" name="apellido" id="apellido"
             value="<?= $asoc['apellido'] ?>">
         <div class="invalid-feedback"><?= $errors['apellido'] ?? '' ?></div>
     </div>
 
     <div class="form-group">
         <label for="nombre">Nombre <span>*</span></label>
-        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('nombre', $errors); ?>" type="text" name="nombre" id="nombre"
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
+            class="form-control <?= error_field('nombre', $errors); ?>" type="text" name="nombre" id="nombre"
             value="<?= $asoc['nombre'] ?>">
         <div class="invalid-feedback"><?= $errors['nombre'] ?? '' ?></div>
     </div>
 
     <div class="form-group">
         <label for="nro-cuil">Número de cuil (sin guiones, puntos, espacios u otros símbolos) <span>*</span></label>
-        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('nro_cuil', $errors); ?>" type="text" name="nro_cuil" id="nro-cuil"
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
+            class="form-control <?= error_field('nro_cuil', $errors); ?>" type="text" name="nro_cuil" id="nro-cuil"
             value="<?= $asoc['nro_cuil'] ?>">
         <div class="invalid-feedback"><?= $errors['nro_cuil'] ?? '' ?></div>
     </div>
@@ -43,14 +46,16 @@
     <div class="form-group">
         <label for="nro-documento">Número de documento con ocho dígitos (completar con ceros a la izquierda si es
             necesario) <span>*</span></label>
-        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('nro_documento', $errors); ?>" type="text" name="nro_documento"
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
+            class="form-control <?= error_field('nro_documento', $errors); ?>" type="text" name="nro_documento"
             id="nro-documento" value="<?= $asoc['nro_documento'] ?>">
         <div class="invalid-feedback"><?= $errors['nro_documento'] ?? '' ?></div>
     </div>
 
     <div class="form-group">
         <label for="fech-nacimiento">Fecha de nacimiento (dd/mm/aaaa) <span>*</span></label>
-        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('fech_nacimiento', $errors); ?>" type="text" name="fech_nacimiento"
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
+            class="form-control <?= error_field('fech_nacimiento', $errors); ?>" type="text" name="fech_nacimiento"
             id="fech-nacimiento" value="<?= $asoc['fech_nacimiento'] ?>">
         <div class="invalid-feedback"><?= $errors['fech_nacimiento'] ?? '' ?></div>
     </div>
@@ -74,7 +79,8 @@
 
     <div class="form-group">
         <label for="email">Correo electrónico <span>*</span></label>
-        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('email', $errors); ?>" type="email" name="email" id="email"
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
+            class="form-control <?= error_field('email', $errors); ?>" type="email" name="email" id="email"
             value="<?= $asoc['email'] ?>">
         <div class="invalid-feedback"><?= $errors['email'] ?? '' ?></div>
     </div>
@@ -89,15 +95,17 @@
 
     <div class="form-group">
         <label for="nro-tel-linea">Teléfono de línea (con código de área, sin espacios, puntos u otros símbolos)</label>
-        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('nro_tel_linea', $errors); ?>" type="text" name="nro_tel_linea"
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
+            class="form-control <?= error_field('nro_tel_linea', $errors); ?>" type="text" name="nro_tel_linea"
             idr="nro-tel-linea" value="<?= $asoc['nro_tel_linea'] ?>">
         <div class="invalid-feedback"><?= $errors['nro_tel_linea'] ?? '' ?></div>
     </div>
 
     <div class="form-group">
         <label for="domicilio">Domicilio <span>*</span></label>
-        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" class="form-control <?= error_field('domicilio', $errors); ?>" type="text" name="domicilio"
-            id="domicilio" value="<?= $asoc['domicilio'] ?>">
+        <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
+            class="form-control <?= error_field('domicilio', $errors); ?>" type="text" name="domicilio" id="domicilio"
+            value="<?= $asoc['domicilio'] ?>">
         <div class="invalid-feedback"><?= $errors['domicilio'] ?? '' ?></div>
     </div>
 
@@ -167,11 +175,15 @@
     <fieldset class="form-group">
         <legend> Sexo <span>*</span></legend>
         <div class="custom-control custom-radio">
-            <input type="radio" id="genero1" name="genero" value="Femenino" class="custom-control-input <?= error_field('genero', $errors); ?>" <?php if(isset($asoc['genero']) && $asoc['genero'] == 'Femenino') echo 'checked'; ?>>
+            <input type="radio" id="genero1" name="genero" value="Femenino"
+                class="custom-control-input <?= error_field('genero', $errors); ?>"
+                <?php if(isset($asoc['genero']) && $asoc['genero'] == 'Femenino') echo 'checked'; ?>>
             <label class="custom-control-label" for="genero1" style="font-weight: normal;">Femenino</label>
         </div>
         <div class="custom-control custom-radio">
-            <input type="radio" id="genero2" name="genero" value="Masculino" class="custom-control-input <?= error_field('genero', $errors); ?>" <?php if(isset($asoc['genero']) && $asoc['genero'] == 'Masculino') echo 'checked'; ?>>
+            <input type="radio" id="genero2" name="genero" value="Masculino"
+                class="custom-control-input <?= error_field('genero', $errors); ?>"
+                <?php if(isset($asoc['genero']) && $asoc['genero'] == 'Masculino') echo 'checked'; ?>>
             <label class="custom-control-label" for="genero2" style="font-weight: normal;">Masculino</label>
             <div class="invalid-feedback"><?= $errors['genero'] ?? '' ?></div>
         </div>

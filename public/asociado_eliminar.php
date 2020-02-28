@@ -6,21 +6,20 @@ require("../includes/config.php");
 $message = '';
 $title = 'NOT FOUND';
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET')
-{
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (!array_key_exists('id_asociado', $_GET)) {
         $message = 'ID de parámetro URL no encontrado.';
         require("../views/error/error.html");
         exit;
     }
-    
+
     if (!isPositiveInt($_GET['id_asociado'])) {
         $message = 'Identificador de usuario inválido.';
         require("../views/error/error.html");
         exit;
     }
 
-    if(eliminarAsociado( $_GET['id_asociado'] ) ){
+    if (eliminarAsociado($_GET['id_asociado'])) {
         $message = 'El registro se eliminó correctamente.';
         Flash::addFlash($message);
     } else {

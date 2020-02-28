@@ -29,8 +29,8 @@ $pages = [
 ];
 
 // PHP_SELF: /página.php no se encuentra en el array $pages entonces la condición se cumple
-if ( !in_array($_SERVER["PHP_SELF"], $pages) ) {
-    
+if (!in_array($_SERVER["PHP_SELF"], $pages)) {
+
     if (empty($_SESSION["user_id"])) {
         redirect("user_login.php");
     }

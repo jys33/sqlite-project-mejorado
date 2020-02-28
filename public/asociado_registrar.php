@@ -15,21 +15,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['apellido'])) {
         $errors['apellido'] = 'Ingrese el apellido.';
     } else {
-        $asoc['apellido'] = test_input( $_POST['apellido'] );
+        $asoc['apellido'] = test_input($_POST['apellido']);
 
-        if(!checkFormat($regexOnlyLetters, $asoc['apellido'])) {
-	        $errors['apellido'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
-	    }
+        if (!checkFormat($regexOnlyLetters, $asoc['apellido'])) {
+            $errors['apellido'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
+        }
     }
 
     if (empty($_POST['nombre'])) {
         $errors['nombre'] = 'Ingrese el nombre.';
     } else {
-        $asoc['nombre'] = test_input( $_POST['nombre'] );
+        $asoc['nombre'] = test_input($_POST['nombre']);
 
-        if(!checkFormat($regexOnlyLetters, $asoc['nombre'])) {
-	        $errors['nombre'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
-	    }
+        if (!checkFormat($regexOnlyLetters, $asoc['nombre'])) {
+            $errors['nombre'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
+        }
     }
 
     if (empty($_POST['genero'])) {
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $asoc['nro_cuil'] = test_input($_POST["nro_cuil"]);
 
-        if (! validarCuit($asoc['nro_cuil']) ) {
+        if (!validarCuit($asoc['nro_cuil'])) {
             $errors['nro_cuil'] = "El formato o el número de cuil ingresado no es válido.";
         }
     }
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $asoc['nro_documento'] = test_input($_POST["nro_documento"]);
 
-        if(!checkFormat($regexDni, $asoc['nro_documento'])) {
+        if (!checkFormat($regexDni, $asoc['nro_documento'])) {
             $errors['nro_documento'] = 'El formato o el número de documento ingresado no es válido.';
         }
     }
@@ -69,13 +69,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $asoc['fech_nacimiento'] = test_input($_POST["fech_nacimiento"]);
 
-        if( !validateDate($asoc['fech_nacimiento']) ) {
+        if (!validateDate($asoc['fech_nacimiento'])) {
             $errors['fech_nacimiento'] = 'El formato o la fecha ingresada no es válida.';
-            
         } else {
             $edadAsociado = (int) getAge($asoc['fech_nacimiento']);
-            
-            if ( !($edadAsociado >= 18) ) {
+
+            if (!($edadAsociado >= 18)) {
                 $errors['fech_nacimiento'] = "Asegúrate de usar tu fecha de nacimiento real.";
             }
         }
@@ -90,17 +89,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($_POST['email'])) {
         $errors['email'] = 'Ingrese el correo electrónico.';
     } else {
-        $asoc['email'] = test_input( $_POST['email'] );
+        $asoc['email'] = test_input($_POST['email']);
 
-        if ( !checkFormat($regexEmail, $asoc['email'], true) ) {
-            $errors['email'] = '\''. $asoc['email'] . '\' no es una dirección de correo electrónico válida.';
+        if (!checkFormat($regexEmail, $asoc['email'], true)) {
+            $errors['email'] = '\'' . $asoc['email'] . '\' no es una dirección de correo electrónico válida.';
         }
     }
 
     if (!empty($_POST['nro_tel_linea'])) {
         $asoc['nro_tel_linea'] = test_input($_POST["nro_tel_linea"]);
 
-        if ( !validar_tel($asoc['nro_tel_linea']) ) {
+        if (!validar_tel($asoc['nro_tel_linea'])) {
             $errors['nro_tel_linea'] = "El formato o el número de teléfono ingresado no es válido.";
         }
     }
@@ -110,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $asoc['nro_tel_movil'] = test_input($_POST["nro_tel_movil"]);
 
-        if ( !validar_tel($asoc['nro_tel_movil']) ) {
+        if (!validar_tel($asoc['nro_tel_movil'])) {
             $errors['nro_tel_movil'] = "El formato o el número de teléfono ingresado no es válido.";
         }
     }
@@ -133,29 +132,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $asoc['localidad'] = test_input($_POST["localidad"]);
     }
 
-    if ( count($errors) == 0 ) {
-        
-        $result = obtenerAsociadoPorNroDeCuil( $asoc['nro_cuil'] );
-        
-        if ( count($result) == 1 ){
+    if (count($errors) == 0) {
+
+        $result = obtenerAsociadoPorNroDeCuil($asoc['nro_cuil']);
+
+        if (count($result) == 1) {
             $errors['nro_cuil'] = 'Este número de cuil ya ha sido registrado.';
         }
-        
-        $result = obtenerAsociadoPorNroDeDni( $asoc['nro_documento'] );
-        
-        if ( count($result) == 1){
+
+        $result = obtenerAsociadoPorNroDeDni($asoc['nro_documento']);
+
+        if (count($result) == 1) {
             $errors['nro_documento'] = 'Este número de documento ya ha sido registrado.';
         }
-        
-        $result = obtenerEmailAsociado( $asoc['email'] );
-        
-        if ( count($result) == 1 ){
+
+        $result = obtenerEmailAsociado($asoc['email']);
+
+        if (count($result) == 1) {
             $errors['email'] = 'Este correo electrónico ya ha sido registrado.';
         }
-        
+
         if (count($errors) == 0) {
 
-            if ( insertarAsociado( $asoc ) ) {
+            if (insertarAsociado($asoc)) {
                 Flash::addFlash('La acción se realizó correctamente.');
                 redirect('/');
             }
@@ -165,10 +164,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // render header
 require("../views/inc/header.html");
-    
+
 // render template
 require("../views/asociado/registrar_asociado.html");
-    
+
 // render footer
 require("../views/inc/footer.html");
 
@@ -194,11 +193,11 @@ function obtenerEmailAsociado($email_asociado)
 function obtenerAsociadoPorNroDeDni($dni)
 {
     $q = 'SELECT * FROM asociado WHERE nro_documento = ? ;';
-    
+
     return Db::query($q, $dni);
 }
 
-function insertarAsociado( $asociado )
+function insertarAsociado($asociado)
 {
     $q = 'INSERT INTO asociado (
             apellido,
@@ -220,10 +219,22 @@ function insertarAsociado( $asociado )
     $created_on = $last_modified_on = date('Y-m-d H:i:s');
 
     $result = Db::query(
-        $q, $asociado['apellido'], $asociado['nombre'], $asociado['genero'], $asociado['nro_cuil'], $asociado['tipo_documento'], $asociado['nro_documento'], $asociado['categoria'], dateToDb( $asociado['fech_nacimiento'] ), $asociado['domicilio'], $asociado['localidad'], $created_on, $last_modified_on
+        $q,
+        $asociado['apellido'],
+        $asociado['nombre'],
+        $asociado['genero'],
+        $asociado['nro_cuil'],
+        $asociado['tipo_documento'],
+        $asociado['nro_documento'],
+        $asociado['categoria'],
+        dateToDb($asociado['fech_nacimiento']),
+        $asociado['domicilio'],
+        $asociado['localidad'],
+        $created_on,
+        $last_modified_on
     );
 
-    if(!$result) return false;
+    if (!$result) return false;
 
     // Grabamos el ID del asociado insertado
     $id_asociado = Db::getInstance()->lastInsertId();
@@ -232,14 +243,14 @@ function insertarAsociado( $asociado )
 
     $result = Db::query($q, $asociado['email'], $id_asociado);
 
-    if(!$result) return false;
+    if (!$result) return false;
 
-    if ( !insertarTelAsociado($id_asociado, $asociado['nro_tel_movil']) ) {
+    if (!insertarTelAsociado($id_asociado, $asociado['nro_tel_movil'])) {
         return false;
     }
 
-    if ( !empty($asociado['nro_tel_linea']) ) {
-        if ( !insertarTelAsociado($id_asociado, $asociado['nro_tel_linea'], 'linea') ) {
+    if (!empty($asociado['nro_tel_linea'])) {
+        if (!insertarTelAsociado($id_asociado, $asociado['nro_tel_linea'], 'linea')) {
             return false;
         }
     }

@@ -7,7 +7,7 @@
         </h1>
         <thead style="background-color: #113d76;color: #fff;">
             <tr>
-            <?php foreach($headers as $header){ echo '<td>' . $header . '</td>'; } ?>
+                <?php foreach($headers as $header){ echo '<td>' . $header . '</td>'; } ?>
             </tr>
         </thead>
         <tbody>
@@ -31,8 +31,8 @@
                 <td><?= $val['cp'] ?></td>
                 <td><?= $val['provincia'] ?></td>
                 <td class="text-center">
-                    <a href="/asociado_editar.php?id_asociado=<?= $val['id_asociado'] ?>" title="Editar asociado"><i class="material-icons"
-                            style="color: orange;">edit</i></a>&nbsp;&nbsp;
+                    <a href="/asociado_editar.php?id_asociado=<?= $val['id_asociado'] ?>" title="Editar asociado"><i
+                            class="material-icons" style="color: orange;">edit</i></a>&nbsp;&nbsp;
                     <a href="/asociado_eliminar.php?id_asociado=<?= $val['id_asociado'] ?>" title="Eliminar asociado"
                         onclick="return confirm('¿Deseas eliminar el registro?');"><i class="material-icons"
                             style="color: #dc143c;">delete</i></a>

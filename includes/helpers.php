@@ -15,7 +15,7 @@ function test_input($data)
  */
 function removeSpaces($str)
 {
-	return preg_replace('/\s+/', ' ', trim($str));
+    return preg_replace('/\s+/', ' ', trim($str));
 }
 
 // función para encriptar contraseña
@@ -27,27 +27,24 @@ function encryptPassword($password)
 
 function verifyPassword($password, $passwordHash)
 {
-    $passwordMatch = ( password_verify($password . 'r8UN#uHVX5', $passwordHash) == $passwordHash );
+    $passwordMatch = (password_verify($password . 'r8UN#uHVX5', $passwordHash) == $passwordHash);
     return $passwordMatch;
 }
 
 function redirect($destination)
 {
     // handle URL - manejar la URL
-    if (preg_match("/^https?:\/\//", $destination))
-    {
+    if (preg_match("/^https?:\/\//", $destination)) {
         header("Location: " . $destination);
     }
     // handle absolute path - manejar ruta absoluta
-    else if (preg_match("/^\//", $destination))
-    {
+    else if (preg_match("/^\//", $destination)) {
         $protocol = (isset($_SERVER["HTTPS"])) ? "https" : "http";
         $host = $_SERVER["HTTP_HOST"];
         header("Location: $protocol://$host$destination");
     }
     // handle relative path - manejar ruta relativa
-    else
-    {
+    else {
         // adapted from http://www.php.net/header
         $protocol = (isset($_SERVER["HTTPS"])) ? "https" : "http";
         $host = $_SERVER["HTTP_HOST"];
@@ -75,7 +72,7 @@ function checkLength($str, $minlength, $maxlength)
     return false;
 }
 
-function pass_gen(int $length = 8) : string
+function pass_gen(int $length = 8): string
 {
     $pass = array();
     for ($i = 0; $i < $length; $i++) {
@@ -102,14 +99,15 @@ function validatePasswordStrength($password) // Caracteres se escribe sin acento
     $number    = preg_match('@[0-9]@', $password);
     $specialChars = preg_match('@[^\w]@', $password);
 
-    if(!$uppercase || !$lowercase || !$number || !$specialChars) {
+    if (!$uppercase || !$lowercase || !$number || !$specialChars) {
         return false;
-    }else{
+    } else {
         return true;
     }
 }
 
-function isPositiveInt($int) {
+function isPositiveInt($int)
+{
     /**
      * FILTER_VALIDATE_INT devuelve true aun cuando el número sea un string de la forma '33' y no 33
      * tampoco toma en cuenta el 0 como si lo hace la función is_int()
@@ -119,7 +117,7 @@ function isPositiveInt($int) {
     /**
      * Devuelve 1 si a es positivo, -1 si a es negativo, y 0 si a es cero.
      * no toma en cuenta el cero como válido
-     */ 
+     */
     // if(gmp_sign($ID) == 1){
     //     echo 'Es valido';
     // } else {
@@ -134,12 +132,14 @@ function isPositiveInt($int) {
         print "user input is an integer\n";
 }
 
-function dateToDb($date) {
+function dateToDb($date)
+{
     $df = explode('/', $date);
     return $df[2] . '-' . $df[1] . '-' . $df[0];
 }
 
-function dateToView($date) {
+function dateToView($date)
+{
     $df = explode('-', $date);
     return $df[2] . '/' . $df[1] . '/' . $df[0];
 }
@@ -147,8 +147,9 @@ function dateToView($date) {
 /**
  * https://es.wikipedia.org/wiki/Clave_%C3%9Anica_de_Identificaci%C3%B3n_Tributaria
  */
-function validarCuit($cuit){ // 27-27369830-2
-    if ( !preg_match('/^\d{11}$/', $cuit) ) {
+function validarCuit($cuit)
+{ // 27-27369830-2
+    if (!preg_match('/^\d{11}$/', $cuit)) {
         return false;
     }
     /**
@@ -156,45 +157,46 @@ function validarCuit($cuit){ // 27-27369830-2
      * reemplaza todos los caracteres que no son digitos (-, ., ' ').
      * $card_number = '7896-541-230'; $card_number = preg_replace('/\D+/', '', $card_number);
      */
-	$cuit = preg_replace('/[^\d]/', '', (string) $cuit);
-	$cuit_tipos = [20, 23, 24, 27, 30, 33, 34];
+    $cuit = preg_replace('/[^\d]/', '', (string) $cuit);
+    $cuit_tipos = [20, 23, 24, 27, 30, 33, 34];
 
-	if (strlen($cuit) != 11) {
-		return false;
-	}
-
-	$tipo = (int) substr($cuit, 0, 2);
-
-	if (!in_array($tipo, $cuit_tipos, true)) {
-	    return false;
+    if (strlen($cuit) != 11) {
+        return false;
     }
 
-	$acumulado = 0;
-	$digitos = str_split($cuit); // Convertir en un array
-	$digito = array_pop($digitos); // Extraer último elemento del array
-	$contador = count($digitos);
+    $tipo = (int) substr($cuit, 0, 2);
 
-	for ($i = 0; $i < $contador; $i++) {
-		$acumulado += $digitos[ 9 - $i ] * (2 + ($i % 6));
-	}
+    if (!in_array($tipo, $cuit_tipos, true)) {
+        return false;
+    }
 
-	$verif = 11 - ($acumulado % 11);
+    $acumulado = 0;
+    $digitos = str_split($cuit); // Convertir en un array
+    $digito = array_pop($digitos); // Extraer último elemento del array
+    $contador = count($digitos);
 
-	// Si el resultado es 11, el dígito verificador será 0
-	// Sino, será el dígito verificador
-	$verif = $verif == 11 ? 0 : $verif;
+    for ($i = 0; $i < $contador; $i++) {
+        $acumulado += $digitos[9 - $i] * (2 + ($i % 6));
+    }
 
-	return $digito == $verif;
+    $verif = 11 - ($acumulado % 11);
+
+    // Si el resultado es 11, el dígito verificador será 0
+    // Sino, será el dígito verificador
+    $verif = $verif == 11 ? 0 : $verif;
+
+    return $digito == $verif;
 }
 
 /**
  * Validación de fecha en el formato 03/02/2019 o 3/2/2019
  */
-function validateDate($date){
+function validateDate($date)
+{
     $matches = [];
     $pattern = '/^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$/';
     if (!preg_match($pattern, $date, $matches)) return false;
-    
+
     //checkdate ( int $month , int $day , int $year ) : bool checkdate(12, 31, 2000)
     if (!checkdate($matches[2], $matches[1], $matches[3])) return false;
     // return $matches[3] . '-' . $matches[2] . '-' . $matches[1];
@@ -204,15 +206,16 @@ function validateDate($date){
 /**
  * https://es.stackoverflow.com/questions/136325/validar-tel%C3%A9fonos-de-argentina-con-una-expresi%C3%B3n-regular
  */
-function validar_tel($tel) {
+function validar_tel($tel)
+{
     /**
      * sin espacios, puntos u otros símbolos
      */
-    if ( !preg_match('/^\d+$/', $tel) ) {
+    if (!preg_match('/^\d+$/', $tel)) {
         return false;
     }
     $re = '/^(?:((?P<p1>(?:\( ?)?+)(?:\+|00)?(54)(?<p2>(?: ?\))?+)(?P<sep>(?:[-.]| (?:[-.] )?)?+)(?:(?&p1)(9)(?&p2)(?&sep))?|(?&p1)(0)(?&p2)(?&sep))?+(?&p1)(11|([23]\d{2}(\d)??|(?(-10)(?(-5)(?!)|[68]\d{2})|(?!))))(?&p2)(?&sep)(?(-5)|(?&p1)(15)(?&p2)(?&sep))?(?:([3-6])(?&sep)|([12789]))(\d(?(-5)|\d(?(-6)|\d)))(?&sep)(\d{4})|(1\d{2}|911))$/D';
-    if ( preg_match($re, $tel, $match) ) {
+    if (preg_match($re, $tel, $match)) {
         return true;
     }
     return false;
@@ -247,7 +250,7 @@ function getAge($dateOfBirth)
 function getUrlParam($name)
 {
     if (!array_key_exists($name, $_GET)) {
-        throw new NotFoundException('URL parameter "' . $name . '" not found.');
+        // throw new NotFoundException('URL parameter "' . $name . '" not found.');
     }
     return $_GET[$name];
 }
@@ -258,22 +261,23 @@ function getUserByGetId()
     try {
         $id = getUrlParam('id');
     } catch (Exception $ex) {
-        throw new NotFoundException('No User identifier provided.');
+        // throw new NotFoundException('No User identifier provided.');
     }
     if (!is_numeric($id)) {
-        throw new NotFoundException('Invalid User identifier provided.');
+        // throw new NotFoundException('Invalid User identifier provided.');
     }
-    $userdao = new UserDao();
-    $user = $userdao->findById($id);
-    if ($user === null) {
-        throw new NotFoundException('Unknown User identifier provided.');
-    }
-    return $user;
+    // $userdao = new UserDao();
+    // $user = $userdao->findById($id);
+    // if ($user === null) {
+    //     throw new NotFoundException('Unknown User identifier provided.');
+    // }
+    // return $user;
 }
 // End
 
-function error_field ($title, array $errors) {
-    if (array_key_exists ($title, $errors) ) {
+function error_field($title, array $errors)
+{
+    if (array_key_exists($title, $errors)) {
         return 'is-invalid';
     }
     return '';
@@ -310,7 +314,7 @@ function obtenerTelAsociado($id_asociado, $tipo = 'movil')
 
     $stmt = Db::getInstance()->prepare($q);
 
-    if($stmt === false) return false;
+    if ($stmt === false) return false;
 
     $result = $stmt->execute([$tipo, $id_asociado]);
 
@@ -326,15 +330,16 @@ function getUserById($user_id)
     return Db::query($q, $user_id);
 }
 
-function RandomToken($length = 32){
-    if(!isset($length) || intval($length) <= 8 ){
-      $length = 32;
+function RandomToken($length = 32)
+{
+    if (!isset($length) || intval($length) <= 8) {
+        $length = 32;
     }
     if (function_exists('random_bytes')) {
         return bin2hex(random_bytes($length));
     }
     if (function_exists('mcrypt_create_iv')) {
-        return bin2hex(mcrypt_create_iv($length, MCRYPT_DEV_URANDOM));
+        // return bin2hex(mcrypt_create_iv($length, MCRYPT_DEV_URANDOM));
     }
     if (function_exists('openssl_random_pseudo_bytes')) {
         return bin2hex(openssl_random_pseudo_bytes($length));

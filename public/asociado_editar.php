@@ -10,20 +10,19 @@ $message = '';
 /**
  * chequear si existe el ID y es un número entero positivo 
  */
-if ( $_SERVER["REQUEST_METHOD"] == "GET" )
-{
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if (!array_key_exists('id_asociado', $_GET)) {
         $message = 'ID de parámetro URL no encontrado.';
         require("../views/error/error.html");
         exit;
     }
-    
+
     if (!isPositiveInt($_GET['id_asociado'])) {
         $message = 'Identificador de usuario inválido.';
         require("../views/error/error.html");
         exit;
     }
-    
+
     $asoc = obtenerAsociadoPorId($_GET['id_asociado']);
 
     if (!$asoc) {
@@ -37,26 +36,26 @@ if ( $_SERVER["REQUEST_METHOD"] == "GET" )
     $_SESSION['id_asociado'] = $asoc['id_asociado'];
 }
 
-if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($_POST['apellido'])) {
         $errors['apellido'] = 'Ingrese el apellido.';
     } else {
-        $asoc['apellido'] = test_input( $_POST['apellido'] );
+        $asoc['apellido'] = test_input($_POST['apellido']);
 
-        if(!checkFormat($regexOnlyLetters, $asoc['apellido'])) {
-	        $errors['apellido'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
-	    }
+        if (!checkFormat($regexOnlyLetters, $asoc['apellido'])) {
+            $errors['apellido'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
+        }
     }
 
     if (empty($_POST['nombre'])) {
         $errors['nombre'] = 'Ingrese el nombre.';
     } else {
-        $asoc['nombre'] = test_input( $_POST['nombre'] );
+        $asoc['nombre'] = test_input($_POST['nombre']);
 
-        if(!checkFormat($regexOnlyLetters, $asoc['nombre'])) {
-	        $errors['nombre'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
-	    }
+        if (!checkFormat($regexOnlyLetters, $asoc['nombre'])) {
+            $errors['nombre'] = 'Solo se permiten letras (a-zA-Z), y espacios en blanco.';
+        }
     }
 
     if (empty($_POST['categoria'])) {
@@ -68,17 +67,17 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
     if (empty($_POST['email'])) {
         $errors['email'] = 'Ingrese el correo electrónico.';
     } else {
-        $asoc['email'] = test_input( $_POST['email'] );
+        $asoc['email'] = test_input($_POST['email']);
 
-        if ( !checkFormat($regexEmail, $asoc['email'], true) ) {
-            $errors['email'] = '\''. $asoc['email'] . '\' no es una dirección de correo electrónico válida.';
+        if (!checkFormat($regexEmail, $asoc['email'], true)) {
+            $errors['email'] = '\'' . $asoc['email'] . '\' no es una dirección de correo electrónico válida.';
         }
     }
 
     if (!empty($_POST['nro_tel_linea'])) {
         $asoc['nro_tel_linea'] = test_input($_POST["nro_tel_linea"]);
 
-        if ( !validar_tel($asoc['nro_tel_linea']) ) {
+        if (!validar_tel($asoc['nro_tel_linea'])) {
             $errors['nro_tel_linea'] = "El formato o el número de teléfono ingresado no es válido.";
         }
     } else {
@@ -90,7 +89,7 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
     } else {
         $asoc['nro_tel_movil'] = test_input($_POST["nro_tel_movil"]);
 
-        if ( !validar_tel($asoc['nro_tel_movil']) ) {
+        if (!validar_tel($asoc['nro_tel_movil'])) {
             $errors['nro_tel_movil'] = "El formato o el número de teléfono ingresado no es válido.";
         }
     }
@@ -113,11 +112,11 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
         $asoc['localidad'] = test_input($_POST["localidad"]);
     }
 
-    if ( count($errors) == 0 ) {
+    if (count($errors) == 0) {
 
         $asoc['id_asociado'] = $_SESSION['id_asociado'];
 
-        if ( actualizarAsociado( $asoc ) ) {
+        if (actualizarAsociado($asoc)) {
             Flash::addFlash('La acción se realizó correctamente.');
             redirect('/');
         }
@@ -126,10 +125,10 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
 
 // render header
 require("../views/inc/header.html");
-    
+
 // render template
 require("../views/asociado/editar_asociado.html");
-    
+
 // render footer
 require("../views/inc/footer.html");
 
@@ -166,8 +165,8 @@ function obtenerAsociadoPorId($id_asociado)
 
     $result = Db::query($q, $id_asociado);
 
-    if(count($result) != 1) return false;
-    
+    if (count($result) != 1) return false;
+
     $asociado = $result[0];
 
     $tel_movil = obtenerTelAsociado($id_asociado);
@@ -198,31 +197,37 @@ function actualizarAsociado($asociado)
 
     $result = Db::query(
         $q,
-        $asociado['apellido'], $asociado['nombre'], $asociado['categoria'], $asociado['domicilio'], $asociado['localidad'], $last_modified_on, $asociado['id_asociado']
+        $asociado['apellido'],
+        $asociado['nombre'],
+        $asociado['categoria'],
+        $asociado['domicilio'],
+        $asociado['localidad'],
+        $last_modified_on,
+        $asociado['id_asociado']
     );
 
-    if(!$result) return false;
+    if (!$result) return false;
 
     $q = 'UPDATE
             email
           SET
             email = ?
           WHERE id_asociado = ? ;';
-    
+
     $result = Db::query($q, $asociado['email'], $asociado['id_asociado']);
 
-    if(!$result) return false;
+    if (!$result) return false;
 
-    if ( !updateTelAsociado($asociado['id_asociado'], $asociado['nro_tel_movil']) ) {
+    if (!updateTelAsociado($asociado['id_asociado'], $asociado['nro_tel_movil'])) {
         return false;
     }
 
-    if ( !obtenerTelAsociado($asociado['id_asociado'], 'linea') ) {
-        if ( !insertarTelAsociado($asociado['id_asociado'], $asociado['nro_tel_linea'], 'linea') ) {
+    if (!obtenerTelAsociado($asociado['id_asociado'], 'linea')) {
+        if (!insertarTelAsociado($asociado['id_asociado'], $asociado['nro_tel_linea'], 'linea')) {
             return false;
         }
     } else {
-        if ( !updateTelAsociado($asociado['id_asociado'], $asociado['nro_tel_linea'], 'linea') ) {
+        if (!updateTelAsociado($asociado['id_asociado'], $asociado['nro_tel_linea'], 'linea')) {
             return false;
         }
     }
@@ -238,7 +243,7 @@ function updateTelAsociado($id_asociado, $nro_tel, $tipo = 'movil')
             nro_tel = ? 
           WHERE id_asociado = ? 
             AND tipo = ? ;';
-          
+
     return Db::query($q, $nro_tel, $id_asociado, $tipo);
 }
 

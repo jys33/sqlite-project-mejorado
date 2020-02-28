@@ -23,7 +23,8 @@
 <nav class="navbar navbar-expand-md navbar-light">
     <div class="container">
         <a class="navbar-brand" href="/" style="font-weight: 600;">
-            <img src="/img/cdm.svg" alt="Logo Casa del Maestro" width="36" class="d-inline-block align-middle">&nbsp; Casa del Maestro
+            <img src="/img/cdm.svg" alt="Logo Casa del Maestro" width="36" class="d-inline-block align-middle">&nbsp;
+            Casa del Maestro
         </a>
         <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
             data-target="#navbar" data-toggle="collapse" type="button">
@@ -36,14 +37,16 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Asociado</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Asociado</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown02">
                         <a class="dropdown-item" href="/asociado_listar.php">Listar asociados</a>
                         <a class="dropdown-item" href="/asociado_registrar.php">Registrar asociado</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Usuario</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="/user_change_password.php">Cambiar contraseña</a>
                         <!-- <div class="dropdown-divider"></div> -->
@@ -51,10 +54,12 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active">Hola <span style="font-weight: 500"><?= $row[0]['first_name'] ?>!</span></a>
+                    <a class="nav-link active">Hola <span
+                            style="font-weight: 500"><?= $row[0]['first_name'] ?>!</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user_logout.php" onclick="return confirm('¿Deseas cerrar la sesión?');">Salir</a>
+                    <a class="nav-link" href="/user_logout.php"
+                        onclick="return confirm('¿Deseas cerrar la sesión?');">Salir</a>
                 </li>
                 <li class="nav-item">
                     <button class="dark-switcher nav-link" title="Toggle Dark Mode">
