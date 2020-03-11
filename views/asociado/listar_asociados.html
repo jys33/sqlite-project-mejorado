@@ -1,10 +1,22 @@
 <div style="font-size: 14px;">
+    <!-- <h1 class="mb-3">Asociado
+        <a href="/asociado_registrar.php" title="Alta de asociado">
+            <i class="material-icons" style="vertical-align: middle;">add_circle</i>
+        </a>
+    </h1> -->
+    <div class="row align-items-center mb-3">
+        <div class="col">
+            <a href="/asociado_registrar.php" class="btn btn-sm btn-light" title="Agregar Asociado"><i class="material-icons"
+                    style="vertical-align: bottom;color: #007bff;">add_circle</i> Agregar</a>
+        </div>
+        <div class="col-auto">
+            <a href="/export" class="btn btn-sm btn-light" title="Exportar"><i class="material-icons"
+                    style="vertical-align: bottom;color: #ff0000;">picture_as_pdf</i> Exportar</a>
+            <a href="/print" class="btn btn-sm btn-light" title="Imprimir"><i class="material-icons"
+                    style="vertical-align: bottom;color:#344D90;">print</i> Imprimir</a>
+        </div>
+    </div>
     <table id="dataTable" class="table table-sm table-striped table-bordered dt-responsive nowrap" style="width:100%;">
-        <h1 class="mb-3">Asociado
-            <a href="/asociado_registrar.php" title="Alta de asociado">
-                <i class="material-icons" style="vertical-align: middle;">add_circle</i>
-            </a>
-        </h1>
         <thead style="background-color: #113d76;color: #fff;">
             <tr>
                 <?php foreach($headers as $header){ echo '<td>' . $header . '</td>'; } ?>
@@ -33,7 +45,7 @@
                 <td class="text-center">
                     <a href="/asociado_editar.php?id_asociado=<?= $val['id_asociado'] ?>" title="Editar asociado"><i
                             class="material-icons" style="color: orange;">edit</i></a>&nbsp;&nbsp;
-                            
+
                     <a href="/asociado_eliminar.php?id_asociado=<?= $val['id_asociado'] ?>" title="Eliminar asociado"
                         onclick="return confirm('¿Deseas eliminar el registro?');"><i class="material-icons"
                             style="color: #dc143c;">delete</i></a>

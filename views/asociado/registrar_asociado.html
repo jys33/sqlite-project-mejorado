@@ -1,4 +1,4 @@
-<form action="" style="width: 100%;max-width: 730px;margin: auto;" method="POST">
+<form style="width: 100%;max-width: 730px;margin: auto;" method="POST" name="register_asociado">
     <h1 class="mb-4">Agregar registro</h1>
 
     <div class="form-group">
@@ -175,16 +175,16 @@
     <fieldset class="form-group">
         <legend> Sexo <span>*</span></legend>
         <div class="custom-control custom-radio">
-            <input type="radio" id="genero1" name="genero" value="Femenino"
+            <input type="radio" id="femenino" name="genero" value="Femenino"
                 class="custom-control-input <?= error_field('genero', $errors); ?>"
-                <?php if(isset($asoc['genero']) && $asoc['genero'] == 'Femenino') echo 'checked'; ?>>
-            <label class="custom-control-label" for="genero1" style="font-weight: normal;">Femenino</label>
+                <?php if(isset($asoc['genero']) && $asoc['genero'] == 'Femenino') echo 'checked'; ?> required>
+            <label class="custom-control-label" for="femenino" style="font-weight: normal;">Femenino</label>
         </div>
         <div class="custom-control custom-radio">
-            <input type="radio" id="genero2" name="genero" value="Masculino"
+            <input type="radio" id="masculino" name="genero" value="Masculino"
                 class="custom-control-input <?= error_field('genero', $errors); ?>"
-                <?php if(isset($asoc['genero']) && $asoc['genero'] == 'Masculino') echo 'checked'; ?>>
-            <label class="custom-control-label" for="genero2" style="font-weight: normal;">Masculino</label>
+                <?php if(isset($asoc['genero']) && $asoc['genero'] == 'Masculino') echo 'checked'; ?> required>
+            <label class="custom-control-label" for="masculino" style="font-weight: normal;">Masculino</label>
             <div class="invalid-feedback"><?= $errors['genero'] ?? '' ?></div>
         </div>
     </fieldset>

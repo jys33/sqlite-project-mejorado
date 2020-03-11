@@ -37,7 +37,7 @@ img.theme-icon{
 /* END DARK-LIGHT-MODE */
 
 /* DataTables centrar icono*/
-table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before{top:5px;}
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before{top:6px;}
 
 /* Estilos de input desabilitados */
 .custom-select:disabled{background-color: white;}

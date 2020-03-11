@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#dataTable').DataTable({
-        "pagingType": "full_numbers",
+        // "pagingType": "full_numbers",
         "language": {
             "lengthMenu": "Mostrar _MENU_ registros",
             "zeroRecords": "No hay datos disponibles en la tabla",

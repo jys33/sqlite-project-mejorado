@@ -44,3 +44,19 @@ function showRegisterPasswords() {
         pwd1.type = pwd2.type = "password";
     }
 }
+
+function disabledBtn() {
+    querySelector('.btn').setAttribute('disabled', true);
+}
+
+// Validate password strength
+function passwordIsStrong(password) {
+    // uppercase, lowercase, number and special char
+    regEx = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/;
+
+    if (!regEx.test(password)) {
+        return false;
+    } else {
+        return true;
+    }
+}
