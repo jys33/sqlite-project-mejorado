@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             name: 'user_name',
             display: 'usuario',
-            rules: 'required|max_length[50]'
+            rules: 'required|min_length[3]|max_length[50]'
         }, {
             name: 'password',
             display: 'contraseña',
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
         .setMessage('check_password', strongPasswordMessage);
 
-    // Registrar  asociado
+    // Registrar asociado
     let register_asociado = new FormValidator('register_asociado', [
         {
             name: 'apellido',

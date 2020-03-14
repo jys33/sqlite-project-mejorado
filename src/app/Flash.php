@@ -24,6 +24,8 @@ final class Flash
         }
         self::initFlashes();
         self::$flashes[] = $message;
+
+        //array_push(self::$flashes, ['message' => $message, 'class' => $class]);
     }
 
     /**
