@@ -15,8 +15,8 @@ require("../src/app/Db.php");
 require("../src/app/Flash.php");
 // https://wiki.php.net/rfc/automatic_csrf_protection#dokuwiki__top
 // https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html
-// enable sessions
-session_name('ID');
+// enable sessions - Can change session name before the session is active
+session_name('ID');// Se debe cambiar el nombre de la sesión antes de activarla
 session_start();
 
 $pages = [
@@ -28,7 +28,7 @@ $pages = [
     '/user_reset_password.php'
 ];
 
-// PHP_SELF: /página.php no se encuentra en el array $pages entonces la condición se cumple
+// PHP_SELF: si /página.php no se encuentra en el array $pages entonces la condición se cumple
 if (!in_array($_SERVER["PHP_SELF"], $pages)) {
 
     if (empty($_SESSION["user_id"])) {

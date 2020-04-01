@@ -67,6 +67,9 @@ function authenticateUser($username, $password)
 
         if (verifyPassword($password, $user['password'])) {
 
+            // unset any session variables
+            $_SESSION = [];
+
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['first_name'] = $user['first_name'];
 
