@@ -15,9 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         listaDeProvincias = document.getElementById("provincia");
         listaDeLocalidades = document.getElementById("localidad");
         listaDeProvincias.onchange = onChange;
-    }/* else{
-        console.log('Se ha modificado el DOM, identificadores inexistentes!');
-    }*/
+    }
 });
 
 function onChange() {

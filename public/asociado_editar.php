@@ -7,6 +7,11 @@ $errors = [];
 $title = 'Editar asociado';
 $message = '';
 
+// set defaults
+$asoc['apellido'] = $asoc['nombre'] = $asoc['nro_cuil'] = $asoc['nro_documento'] = $asoc['fech_nacimiento'] = '';
+$asoc['email'] = $asoc['nro_tel_linea'] = $asoc['nro_tel_movil'] = $asoc['domicilio'] = $asoc['genero'] = '';
+$asoc['categoria'] = $asoc['id_provincia'] = $asoc['id_localidad'] = '';
+
 /**
  * chequear si existe el ID y es un número entero positivo 
  */
@@ -103,13 +108,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST['provincia'])) {
         $errors['provincia'] = "Seleccione una opción.";
     } else {
-        $asoc['provincia'] = test_input($_POST["provincia"]);
+        $asoc['id_provincia'] = test_input($_POST["provincia"]);
     }
 
     if (empty($_POST['localidad'])) {
         $errors['localidad'] = "Seleccione una opción.";
     } else {
-        $asoc['localidad'] = test_input($_POST["localidad"]);
+        $asoc['id_localidad'] = test_input($_POST["localidad"]);
     }
 
     if (count($errors) == 0) {
@@ -151,8 +156,8 @@ function obtenerAsociadoPorId($id_asociado)
             a.fech_nacimiento,
             e.email,
             a.domicilio,
-            l.nombre AS localidad,
-            p.nombre AS provincia 
+            l.id_localidad,
+            p.id_provincia
           FROM
             asociado a 
             JOIN localidad l 
@@ -201,7 +206,7 @@ function actualizarAsociado($asociado)
         $asociado['nombre'],
         $asociado['categoria'],
         $asociado['domicilio'],
-        $asociado['localidad'],
+        $asociado['id_localidad'],
         $last_modified_on,
         $asociado['id_asociado']
     );
@@ -253,6 +258,9 @@ function getProvinces()
     return Db::query($q);
 }
 
-// echo '<pre>';
-// print_r(getProvinces());
-// echo '</pre>';
+function getLocalities($idProvincia)
+{
+    $q = 'SELECT * FROM localidad WHERE id_provincia = ? ;';
+    return Db::query($q, $idProvincia);
+}
+

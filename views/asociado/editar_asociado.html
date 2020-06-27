@@ -21,15 +21,9 @@
         <label for="categoria">Categoría <span>*</span></label>
         <select class="custom-select <?= error_field('categoria', $errors); ?>" name="categoria" id="categoria">
             <option value="">Seleccione una categoría</option>
-            <option value="Activo"
-                <?php if( isset($asoc['categoria']) && $asoc['categoria'] =='Activo' ) echo 'selected' ?>>ACTIVO
-            </option>
-            <option value="Adherente"
-                <?php if( isset($asoc['categoria']) && $asoc['categoria'] =='Adherente' ) echo 'selected' ?>>ADHERENTE
-            </option>
-            <option value="Jubilado"
-                <?php if( isset($asoc['categoria']) && $asoc['categoria'] =='Jubilado' ) echo 'selected' ?>>JUBILADO
-            </option>
+            <option value="Activo">ACTIVO</option>
+            <option value="Adherente">ADHERENTE</option>
+            <option value="Jubilado">JUBILADO</option>
         </select>
         <div class="invalid-feedback"><?= $errors['categoria'] ?? '' ?></div>
     </div>
@@ -72,8 +66,7 @@
         <select class="custom-select <?= error_field('provincia', $errors); ?>" name="provincia" id="provincia">
             <option value disabled selected>Seleccione una provincia</option>
             <?php foreach(getProvinces() as $provincia): ?>
-            <option value="<?= $provincia['id_provincia']; ?>" <?php if ($asoc['provincia'] == $provincia['nombre']): ?>
-                selected="selected" <?php endif; ?>><?= $provincia['nombre']; ?></option>
+            <option value="<?= $provincia['id_provincia']; ?>"><?= $provincia['nombre']; ?></option>
             <?php endforeach ?>
         </select>
         <!-- <select class="custom-select <?= error_field('provincia', $errors); ?>" name="provincia" id="provincia">
@@ -108,16 +101,27 @@
 
     <div class="form-group">
         <label for="localidad">Localidad <span>*</span></label>
-        <select class="custom-select <?= error_field('localidad', $errors); ?>" name="localidad" id="localidad"
-            disabled>
+        <select class="custom-select <?= error_field('localidad', $errors); ?>" name="localidad" id="localidad">
             <option disabled selected>Seleccione una localidad</option>
+            <?php foreach(getLocalities($asoc['id_provincia']) as $localidad): ?>
+            <option value="<?= $localidad['id_localidad']; ?>"><?= $localidad['nombre']; ?></option>
+            <?php endforeach ?>
         </select>
         <div class="invalid-feedback"><?= $errors['localidad'] ?? '' ?></div>
     </div>
 
     <div class="my-4">
-        <button class="btn btn-success" type="submit">Editar registro</button>
+        <button class="btn btn-success" type="submit">Guardar</button>
         <a href="/" class="btn btn-light ml-1">Cancelar</a>
     </div>
     <!-- <p><a href="javascript:history.go(-1)" class="">Volver atrás</a></p> -->
 </form>
+
+<script>
+    // https://tobiasahlin.com/blog/move-from-jquery-to-vanilla-javascript/
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('#categoria').value = "<?= $asoc['categoria'] ?>";
+        document.querySelector('#provincia').value = "<?= $asoc['id_provincia'] ?>";
+        document.querySelector('#localidad').value = "<?= $asoc['id_localidad'] ?>";
+    });
+</script>

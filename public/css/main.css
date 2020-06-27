@@ -44,7 +44,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before{
 .form-control:disabled{background-color: white;}
 
 label, legend {
-    font-size: 14px; 
+    /* font-size: 14px;  */
     margin-bottom: .25rem;
     font-weight: 500;
 }

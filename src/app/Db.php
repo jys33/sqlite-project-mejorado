@@ -9,8 +9,7 @@ class Db
     private function __construct()
     {
         try {
-            // $config = Config::getConfig('mysql');
-            $dsn = 'sqlite:C:\Users\neo\Desktop\cdm\db\db.db'; // ruta absoluta
+            $dsn = 'sqlite:../db/db.db';
             // $dsn = 'mysql:host=localhost;dbname=db;charset=utf8mb4';
             $this->conn = new PDO($dsn, '', '', array(
                 PDO::ATTR_PERSISTENT => true,
