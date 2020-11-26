@@ -5,7 +5,7 @@ require("../includes/config.php");
 
 $title = "Lista de asociados";
 
-$headers = ['#', 'N° de cuil', 'Apellido', 'Nombre', 'Género', 'Du', 'N° de documento', 'Categoría', 'Fech. de nacimiento', 'Fech. de ingreso', 'E-mail', 'Tel. línea', 'Tel. móvil', 'Domicilio', 'Localidad', 'Cód. postal', 'Provincia', 'Acciones'];
+$headers = ['#', 'N° de Cuil', 'Apellido', 'Nombre', 'Sexo', 'Tipo Doc.', 'N° de Doc.', 'Categoría', 'Fec. Nac.', 'Fec. Alta', 'E-mail', 'Tel. Línea', 'Tel. Móvil', 'Domicilio', 'Localidad', 'Cód. Postal', 'Provincia', 'Acciones'];
 
 $data = obtenerTodosLosAsociados();
 
@@ -32,29 +32,18 @@ exit;
  */
 function obtenerTodosLosAsociados()
 {
-    $q = 'SELECT
-            a.id_asociado,
-            a.nro_cuil,
-            a.apellido,
-            a.nombre,
-            a.genero,
-            a.tipo_documento,
-            a.nro_documento,
-            a.categoria,
-            a.fech_nacimiento,
-            a.created_on,
-            e.email,
-            a.domicilio,
-            l.nombre AS localidad,
-            l.cp,
-            p.nombre AS provincia
-          FROM asociado a
+    $q = 'SELECT a.id_asociado, a.nro_cuil, a.apellido,
+          a.nombre, a.genero, a.tipo_documento,
+          a.nro_documento, a.categoria, a.fech_nacimiento,
+          a.created_on, e.email, a.domicilio,
+          l.nombre AS localidad, l.cp, p.nombre AS provincia
+        FROM asociado a
           JOIN localidad l
-          ON a.id_localidad = l.id_localidad
+        ON a.id_localidad = l.id_localidad
           JOIN provincia p
-          ON l.id_provincia = p.id_provincia
+        ON l.id_provincia = p.id_provincia
           JOIN email e
-          ON a.id_asociado = e.id_asociado ORDER BY a.created_on DESC;';
+        ON a.id_asociado = e.id_asociado ORDER BY a.created_on DESC;';
 
     return Db::query($q);
 }
