@@ -22858,12 +22858,14 @@ CREATE INDEX idx_asociado_nro_documento ON asociado(nro_documento);
 
 CREATE TABLE "telefono" (
 	"id_telefono"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	"nro_tel"	TEXT NOT NULL,
-	"tipo"	TEXT NOT NULL,
+	"telefono_movil"	TEXT NOT NULL,
+	"telefono_linea"	TEXT,
 	"id_asociado"	INTEGER NOT NULL,
+  "created" DATETIME NOT NULL,
+	"last_modified" DATETIME NOT NULL,
 	FOREIGN KEY("id_asociado") REFERENCES "asociado"("id_asociado") ON DELETE CASCADE
 );
-CREATE INDEX idx_tel_id_asociado_tipo ON telefono(id_asociado, tipo);
+CREATE INDEX idx_tel_id_asociado_tipo ON telefono(id_asociado, telefono_movil);
 
 CREATE TABLE "email" (
 	"id_email"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -22891,7 +22893,7 @@ CREATE INDEX idx_user_name ON user(user_name);
 
 CREATE TABLE "forgot_password" (
 	"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	"user_id"	INTEGER NOT NULL,
+	"user_id"	INTEGER NOT NULL UNIQUE,
 	"reset_key"	TEXT NOT NULL,
 	"time"	INTEGER NOT NULL,
 	"status"	TEXT NOT NULL,
@@ -22900,6 +22902,5 @@ CREATE TABLE "forgot_password" (
 );
 CREATE INDEX idx_forgot_password_user_id ON forgot_password(user_id);
 CREATE INDEX idx_forgot_password_reset_key ON forgot_password(reset_key);
-
 
 -- ALTER TABLE your_table ADD column_name TEXT/INTEGER default "unknown";

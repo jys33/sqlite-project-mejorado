@@ -151,18 +151,13 @@ function getUserByUsername($username)
 function createUser($user)
 {
     $q = 'INSERT INTO user (
-            last_name,
-            first_name,
-            user_email,
-            user_name,
-            PASSWORD,
-            activation,
-            created_on,
-            last_modified_on
+            last_name, first_name, user_email,
+            user_name, PASSWORD, activation,
+            created_on, last_modified_on
           ) 
           VALUES (?, ?, ?, ?, ?, ?, ?, ?);';
 
-    $created_on = $last_modified_on = date('Y-m-d H:i:s');
+    $now = date('Y-m-d H:i:s');
 
     return Db::query(
         $q,
@@ -172,7 +167,7 @@ function createUser($user)
         $user['user_name'],
         $user['password'],
         $user['activation_key'],
-        $created_on,
-        $last_modified_on
+        $now,
+        $now
     );
 }

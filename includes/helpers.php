@@ -15,6 +15,7 @@ function test_input($data)
  */
 function removeSpaces($str)
 {
+    // "    Hola   Mundo  ";
     return preg_replace('/\s+/', ' ', trim($str));
 }
 
@@ -298,29 +299,6 @@ function getUserByEmail($useremail)
     $q = 'SELECT * FROM user WHERE user_email = ? ;';
 
     return Db::query($q, $useremail);
-}
-
-/**
- * funcion repetida en asociado editar
- */
-function obtenerTelAsociado($id_asociado, $tipo = 'movil')
-{
-    $q = 'SELECT
-            nro_tel
-          FROM
-            telefono
-          WHERE  tipo = ?
-          AND id_asociado = ? ;';
-
-    $stmt = Db::getInstance()->prepare($q);
-
-    if ($stmt === false) return false;
-
-    $result = $stmt->execute([$tipo, $id_asociado]);
-
-    if (!$result) return false;
-
-    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 function getUserById($user_id)

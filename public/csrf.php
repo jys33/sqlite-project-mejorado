@@ -1,6 +1,6 @@
 <?php
 
-$email = ['outlook', 'hotmail', 'gmail', 'yahoo'];
+$emails = ['outlook', 'hotmail', 'gmail', 'yahoo'];
 
 session_start();
 
@@ -33,7 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
 
-	<section style="border: 2px solid #eb2188;
+	<section style="
+	    border: 2px solid #eb2188;
 		background: #080a52;
         color: white;
         border-radius: 1em;

@@ -20,14 +20,6 @@
         </div>
 
         <div class="form-group">
-            <label for="nro-cuil">Número de cuil (sin guiones, puntos, espacios u otros símbolos) <span>*</span></label>
-            <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
-                class="form-control <?= error_field('nro_cuil', $errors); ?>" type="text" name="nro_cuil" id="nro-cuil"
-                value="<?= $asoc['nro_cuil'] ?>">
-            <div class="invalid-feedback"><?= $errors['nro_cuil'] ?? '' ?></div>
-        </div>
-
-        <div class="form-group">
             <label for="tipo-documento">Tipo de documento <span>*</span></label>
             <select class="custom-select <?= error_field('tipo_documento', $errors); ?>" name="tipo_documento"
                 id="tipo-documento">
@@ -53,6 +45,15 @@
                 class="form-control <?= error_field('nro_documento', $errors); ?>" type="text" name="nro_documento"
                 id="nro-documento" value="<?= $asoc['nro_documento'] ?>">
             <div class="invalid-feedback"><?= $errors['nro_documento'] ?? '' ?></div>
+        </div>
+
+        <div class="form-group">
+            <label for="nro-cuil">Número de cuil (sin guiones, puntos, espacios u otros símbolos) <span>*</span></label>
+            <a href="http://www0.unsl.edu.ar/~jolguin/cuit.php" style="float:right;">Cálculo de CUIT/CUIL</a>
+            <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
+                class="form-control <?= error_field('nro_cuil', $errors); ?>" type="text" name="nro_cuil" id="nro-cuil"
+                value="<?= $asoc['nro_cuil'] ?>">
+            <div class="invalid-feedback"><?= $errors['nro_cuil'] ?? '' ?></div>
         </div>
 
         <div class="form-group">
@@ -182,13 +183,13 @@
             <div class="custom-control custom-radio">
                 <input type="radio" id="femenino" name="genero" value="Femenino"
                     class="custom-control-input <?= error_field('genero', $errors); ?>"
-                    <?php if(isset($asoc['genero']) && $asoc['genero'] == 'Femenino') echo 'checked'; ?> required>
+                    <?php if(isset($asoc['genero']) && $asoc['genero'] == 'Femenino') echo 'checked'; ?>>
                 <label class="custom-control-label" for="femenino" style="font-weight: normal;">Femenino</label>
             </div>
             <div class="custom-control custom-radio">
                 <input type="radio" id="masculino" name="genero" value="Masculino"
                     class="custom-control-input <?= error_field('genero', $errors); ?>"
-                    <?php if(isset($asoc['genero']) && $asoc['genero'] == 'Masculino') echo 'checked'; ?> required>
+                    <?php if(isset($asoc['genero']) && $asoc['genero'] == 'Masculino') echo 'checked'; ?>>
                 <label class="custom-control-label" for="masculino" style="font-weight: normal;">Masculino</label>
                 <div class="invalid-feedback"><?= $errors['genero'] ?? '' ?></div>
             </div>

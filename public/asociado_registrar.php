@@ -197,64 +197,37 @@ function obtenerAsociadoPorNroDeDni($dni)
     return Db::query($q, $dni);
 }
 
-function insertarAsociado($asociado)
-{
-    $q = 'INSERT INTO asociado (
-            apellido,
-            nombre,
-            genero,
-            nro_cuil,
-            tipo_documento,
-            nro_documento,
-            categoria,
-            fech_nacimiento,
-            domicilio,
-            id_localidad,
-            created_on,
-            last_modified_on
-          ) 
-          VALUES
-            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ;';
+function insertarAsociado ($asociado) {
 
-    $created_on = $last_modified_on = date('Y-m-d H:i:s');
+    $now = date('Y-m-d H:i:s');
+    try {
+        $db = Db::getInstance();
+        // begin the transaction
+        $db->beginTransaction();
 
-    $result = Db::query(
-        $q,
-        $asociado['apellido'],
-        $asociado['nombre'],
-        $asociado['genero'],
-        $asociado['nro_cuil'],
-        $asociado['tipo_documento'],
-        $asociado['nro_documento'],
-        $asociado['categoria'],
-        dateToDb($asociado['fech_nacimiento']),
-        $asociado['domicilio'],
-        $asociado['localidad'],
-        $created_on,
-        $last_modified_on
-    );
+        $q = 'INSERT INTO asociado ( apellido, nombre, genero, nro_cuil, tipo_documento, nro_documento, categoria, fech_nacimiento, domicilio,
+        id_localidad, created_on, last_modified_on) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ;';
+        Db::query($q, $asociado['apellido'], $asociado['nombre'], $asociado['genero'], $asociado['nro_cuil'], $asociado['tipo_documento'],
+        $asociado['nro_documento'], $asociado['categoria'], dateToDb($asociado['fech_nacimiento']), $asociado['domicilio'], $asociado['localidad'],
+        $now, $now);
+    
+        // Grabamos el ID del asociado insertado
+        $id_asociado = Db::getInstance()->lastInsertId();
+    
+        $q = 'INSERT INTO email (email, id_asociado) VALUES (:email, :id_asociado);';
+        Db::query($q, $asociado['email'], $id_asociado);
+    
+        $q = 'INSERT INTO telefono (telefono_movil, telefono_linea, id_asociado, created, last_modified) VALUES (?, ?, ?, ?, ?);';
+        Db::query($q, $asociado['nro_tel_movil'], $asociado['nro_tel_linea'], $id_asociado, $now, $now);
 
-    if (!$result) return false;
-
-    // Grabamos el ID del asociado insertado
-    $id_asociado = Db::getInstance()->lastInsertId();
-
-    $q = 'INSERT INTO email (email, id_asociado) VALUES (:email, :id_asociado);';
-
-    $result = Db::query($q, $asociado['email'], $id_asociado);
-
-    if (!$result) return false;
-
-    if (!insertarTelAsociado($id_asociado, $asociado['nro_tel_movil'])) {
-        return false;
+        // commit the transaction
+        $db->commit();
+    } catch (PDOException $e) {
+        // roll back the transaction if something failed
+        $db->rollback();
+        trigger_error('Error:' . $e->getMessage(), E_USER_ERROR);
+        return false; // Deberíamos devolver -1 en caso de error si estuvieramos en JAVA :)
     }
-
-    if (!empty($asociado['nro_tel_linea'])) {
-        if (!insertarTelAsociado($id_asociado, $asociado['nro_tel_linea'], 'linea')) {
-            return false;
-        }
-    }
-
     return true;
 }
 

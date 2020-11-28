@@ -114,7 +114,7 @@ function getUserIdFromForgotPassword($user_id, $reset_key)
 {
     $time = time() - 1200;
 
-    // compruebe que la combinación de user_id & key exista y tenga menos de 20 m de antigüedad
+    // compruebe que la combinación de user_id & key exista y tenga menos de 20m de antigüedad
     $q = 'SELECT user_id FROM forgot_password
           WHERE
             reset_key = ?

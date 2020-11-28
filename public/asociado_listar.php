@@ -9,13 +9,6 @@ $headers = ['#', 'N° de Cuil', 'Apellido', 'Nombre', 'Sexo', 'Tipo Doc.', 'N° 
 
 $data = obtenerTodosLosAsociados();
 
-foreach ($data as $key => $asociado) {
-    $tel_movil = obtenerTelAsociado($asociado['id_asociado']);
-    $data[$key]['nro_tel_movil'] = $tel_movil['nro_tel'] ?? '';
-    $tel_linea = obtenerTelAsociado($asociado['id_asociado'], 'linea');
-    $data[$key]['nro_tel_linea'] = $tel_linea['nro_tel'] ?? '';
-}
-
 // render header
 require("../views/inc/header.html");
 
@@ -36,14 +29,13 @@ function obtenerTodosLosAsociados()
           a.nombre, a.genero, a.tipo_documento,
           a.nro_documento, a.categoria, a.fech_nacimiento,
           a.created_on, e.email, a.domicilio,
+          t.telefono_movil, t.telefono_linea,
           l.nombre AS localidad, l.cp, p.nombre AS provincia
-        FROM asociado a
-          JOIN localidad l
-        ON a.id_localidad = l.id_localidad
-          JOIN provincia p
-        ON l.id_provincia = p.id_provincia
-          JOIN email e
-        ON a.id_asociado = e.id_asociado ORDER BY a.created_on DESC;';
-
+        FROM asociado a 
+          INNER JOIN telefono t ON a.id_asociado = t.id_asociado
+          INNER JOIN localidad l ON a.id_localidad = l.id_localidad
+          INNER JOIN provincia p ON l.id_provincia = p.id_provincia
+          INNER JOIN email e ON a.id_asociado = e.id_asociado 
+          WHERE a.deleted = 0 ORDER BY a.created_on DESC;';
     return Db::query($q);
 }

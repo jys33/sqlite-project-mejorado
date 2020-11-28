@@ -42,7 +42,7 @@
                 <span>*</span></label>
             <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
                 class="form-control <?= error_field('nro_tel_movil', $errors); ?>" type="text" name="nro_tel_movil"
-                id="nro-tel-movil" value="<?= $asoc['nro_tel_movil'] ?>">
+                id="nro-tel-movil" value="<?= $asoc['telefono_movil'] ?>">
             <div class="invalid-feedback"><?= $errors['nro_tel_movil'] ?? '' ?></div>
         </div>
 
@@ -51,7 +51,7 @@
                 símbolos)</label>
             <input spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
                 class="form-control <?= error_field('nro_tel_linea', $errors); ?>" type="text" name="nro_tel_linea"
-                id="nro-tel-linea" value="<?= $asoc['nro_tel_linea'] ?>">
+                id="nro-tel-linea" value="<?= $asoc['telefono_linea'] ?>">
             <div class="invalid-feedback"><?= $errors['nro_tel_linea'] ?? '' ?></div>
         </div>
 

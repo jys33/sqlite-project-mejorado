@@ -16,6 +16,7 @@ $asoc['categoria'] = $asoc['id_provincia'] = $asoc['id_localidad'] = '';
  * chequear si existe el ID y es un número entero positivo 
  */
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
+
     if (!array_key_exists('id_asociado', $_GET)) {
         $message = 'ID de parámetro URL no encontrado.';
         require("../views/error/error.html");
@@ -35,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         require("../views/error/error.html");
         exit;
     }
-
+    
     $asoc['fech_nacimiento'] = dateToView($asoc['fech_nacimiento']);
 
     $_SESSION['id_asociado'] = $asoc['id_asociado'];
@@ -144,112 +145,50 @@ exit;
  */
 function obtenerAsociadoPorId($id_asociado)
 {
-    $q = 'SELECT 
-            a.id_asociado,
-            a.nro_cuil,
-            a.apellido,
-            a.nombre,
-            a.genero,
-            a.tipo_documento,
-            a.nro_documento,
-            a.categoria,
-            a.fech_nacimiento,
-            e.email,
-            a.domicilio,
-            l.id_localidad,
-            p.id_provincia
-          FROM
-            asociado a 
-            JOIN localidad l 
-              ON a.id_localidad = l.id_localidad 
-            JOIN provincia p 
-              ON l.id_provincia = p.id_provincia 
-            JOIN email e 
-              ON a.id_asociado = e.id_asociado
-          WHERE a.id_asociado = ? ;';
+    $q = 'SELECT a.id_asociado, a.nro_cuil, a.apellido,
+            a.nombre, a.genero, a.tipo_documento,
+            a.nro_documento, a.categoria, a.fech_nacimiento,
+            t.telefono_movil, t.telefono_linea,
+            e.email, a.domicilio, l.id_localidad, p.id_provincia
+          FROM asociado a
+          INNER JOIN telefono t ON a.id_asociado = t.id_asociado
+          INNER JOIN localidad l ON a.id_localidad = l.id_localidad 
+          INNER JOIN provincia p ON l.id_provincia = p.id_provincia 
+          INNER JOIN email e ON a.id_asociado = e.id_asociado
+          WHERE a.deleted = 0 AND a.id_asociado = ?;';
 
-    $result = Db::query($q, $id_asociado);
+    $rows = Db::query($q, $id_asociado);
 
-    if (count($result) != 1) return false;
+    if (count($rows) != 1) return false;
 
-    $asociado = $result[0];
-
-    $tel_movil = obtenerTelAsociado($id_asociado);
-
-    $asociado['nro_tel_movil'] = $tel_movil['nro_tel'] ?? '';
-
-    $tel_linea = obtenerTelAsociado($id_asociado, 'linea');
-
-    $asociado['nro_tel_linea'] = $tel_linea['nro_tel'] ?? '';
-
-    return $asociado;
+    return $rows[0];
 }
 
 function actualizarAsociado($asociado)
 {
-    $q = 'UPDATE 
-            asociado 
-          SET
-            apellido = ?,
-            nombre = ?,
-            categoria = ?,
-            domicilio = ?,
-            id_localidad = ?,
-            last_modified_on = ?
-          WHERE id_asociado = ? ;';
+    $q = 'UPDATE asociado 
+          SET apellido = ?, nombre = ?, categoria = ?, domicilio = ?, id_localidad = ?, last_modified_on = ? WHERE id_asociado = ? ;';
 
-    $last_modified_on = date('Y-m-d H:i:s');
+    $now = date('Y-m-d H:i:s');
 
-    $result = Db::query(
-        $q,
-        $asociado['apellido'],
-        $asociado['nombre'],
-        $asociado['categoria'],
-        $asociado['domicilio'],
-        $asociado['id_localidad'],
-        $last_modified_on,
-        $asociado['id_asociado']
-    );
+    $result = Db::query($q, $asociado['apellido'], $asociado['nombre'], $asociado['categoria'], $asociado['domicilio'],
+        $asociado['id_localidad'], $now, $asociado['id_asociado']);
 
     if (!$result) return false;
 
-    $q = 'UPDATE
-            email
-          SET
-            email = ?
-          WHERE id_asociado = ? ;';
+    $q = 'UPDATE email SET email = ? WHERE id_asociado = ? ;';
 
     $result = Db::query($q, $asociado['email'], $asociado['id_asociado']);
 
     if (!$result) return false;
 
-    if (!updateTelAsociado($asociado['id_asociado'], $asociado['nro_tel_movil'])) {
-        return false;
-    }
+    $q = 'UPDATE telefono SET telefono_movil = ?, telefono_linea = ?, last_modified = ? WHERE id_asociado = ? ;';
 
-    if (!obtenerTelAsociado($asociado['id_asociado'], 'linea')) {
-        if (!insertarTelAsociado($asociado['id_asociado'], $asociado['nro_tel_linea'], 'linea')) {
-            return false;
-        }
-    } else {
-        if (!updateTelAsociado($asociado['id_asociado'], $asociado['nro_tel_linea'], 'linea')) {
-            return false;
-        }
-    }
+    $result = Db::query($q, $asociado['nro_tel_movil'], $asociado['nro_tel_linea'], $now, $asociado['id_asociado']);
+
+    if (!$result) return false;
 
     return true;
-}
-
-function updateTelAsociado($id_asociado, $nro_tel, $tipo = 'movil')
-{
-    $q = 'UPDATE 
-            telefono 
-          SET
-            nro_tel = ? 
-          WHERE id_asociado = ? 
-            AND tipo = ? ;';
-
-    return Db::query($q, $nro_tel, $id_asociado, $tipo);
 }
 
 function getProvinces()

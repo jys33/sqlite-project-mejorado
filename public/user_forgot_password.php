@@ -44,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $to = $user['user_email'];
                 $subject = 'Restablecimiento de contraseña';
                 $headers = 'MIME-Version: 1.0' . "\r\n";
-                $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-                $headers .= 'From:Casa del Maestro <noreply@app.com>' . "\r\n";
+                $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+                $headers .= 'From: Casa del Maestro y Previsión Social <noreply@app.com>' . "\r\n";
                 $message = "Para restablecer su contraseña haga clic en el siguiente enlace:\n\n";
                 $message .= '<p><a href="http://localhost:8000/user_reset_password.php?user_id=' . urlencode($user['user_id']) . '&key=' . urlencode($reset_key) . '">Restablecer contraseña</a></p><p>El enlace expirará en 20 minutos.</p>';
                 if (mail($to, $subject, $message, $headers)) {
@@ -59,8 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // render header
                 require("../views/inc/header.html");
 
-                echo '<div class="" style="width: 100%;max-width: 600px;margin: auto;margin-top: 130px;text-align: justify;">
-                <h5 style="font-weight: 400;">' . $message . '</h5>
+                echo '<div class="" style="width: 100%;max-width: 370px;margin: auto;margin-top: 130px;text-align: justify;">
+                <p style="font-weight: 400;">' . $message . '</p>
+                <a href="/" class="btn btn-info">Volver a iniciar sesión</a>
                 </div>';
 
                 // render header
@@ -82,22 +83,13 @@ require("../views/inc/footer.html");
 
 exit;
 
-
-function createUniqueActivationCode($user_id, $reset_key)
-{
+function createUniqueActivationCode ($user_id, $reset_key) {
     $time = time();
-    $created_on = $last_modified_on = date('Y-m-d H:i:s');
+    $now = date('Y-m-d H:i:s');
     $status = 'pending';
 
-    $q = 'INSERT INTO forgot_password (
-            user_id, 
-            reset_key, 
-            time, 
-            status, 
-            created_on, 
-            last_modified_on
-          ) 
-          VALUES (?, ?, ?, ?, ?, ?) ;';
-
-    return Db::query($q, $user_id, $reset_key, $time, $status, $created_on, $last_modified_on);
+    $q = 'INSERT INTO forgot_password (user_id, reset_key, time, status, created_on, last_modified_on)
+    VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT(user_id) DO UPDATE SET reset_key = ?, time = ?;';
+    
+    return Db::query($q, $user_id, $reset_key, $time, $status, $now, $now, $reset_key, $time);
 }
