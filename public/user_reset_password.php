@@ -11,11 +11,7 @@ $title = 'Restablecer contraseña';
 
 $errors = [];
 
-if (
-    $_SERVER['REQUEST_METHOD'] == 'POST'
-    && isPositiveInt((int) $_POST['user_id'])
-    && checkFormat($regexKey, $_POST['key'])
-) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isPositiveInt((int) $_POST['user_id']) && checkFormat($regexKey, $_POST['key'])) {
 
     $user['user_id'] = test_input($_POST['user_id']);
     $reset_key = test_input($_POST['key']);
@@ -76,12 +72,8 @@ if (empty($_GET['key']) && empty($_GET['user_id'])) {
 
 $message = 'Algo salió mal. Vuelva a comprobar el enlace o póngase en contacto con el administrador del sistema.';
 
-if (
-    $_SERVER["REQUEST_METHOD"] == "GET"
-    && isset($_GET['user_id'], $_GET['key'])
-    && isPositiveInt((int) $_GET['user_id'])
-    && checkFormat($regexKey, $_GET['key'])
-) {
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['user_id'], $_GET['key'])
+    && isPositiveInt((int) $_GET['user_id']) && checkFormat($regexKey, $_GET['key']) ) {
     $user['user_id'] = test_input($_GET['user_id']);
     $reset_key = test_input($_GET['key']);
 
@@ -115,16 +107,7 @@ function getUserIdFromForgotPassword($user_id, $reset_key)
     $time = time() - 1200;
 
     // compruebe que la combinación de user_id & key exista y tenga menos de 20m de antigüedad
-    $q = 'SELECT user_id FROM forgot_password
-          WHERE
-            reset_key = ?
-          AND
-            user_id = ?
-          AND
-            time > ?
-          AND
-            status = "pending";';
-
+    $q = 'SELECT user_id FROM forgot_password WHERE reset_key = ? AND user_id = ? AND time > ? AND status = "pending";';
     return Db::query($q, $reset_key, $user_id, $time);
 }
 

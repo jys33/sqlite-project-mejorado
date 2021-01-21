@@ -91,7 +91,7 @@ function validatePasswordStrength($password) // Caracteres se escribe sin acento
     // One lower case character => Un carácter en minúscula
     // One number character => Un carácter numérico
     // Please enter a minimum of 8 characters and maximum of 60 characters. => Por favor, ingrese un mínimo de 8 caracteres y un máximo de 60 caracteres.
-    // No special characters, except these: @ . - _ ~ ! # $ % ^ & *
+    // No special characters, except these: @.-_~!#$%^&*
     // Password cannot contain all or part of your email address
 
     // Validate password strength

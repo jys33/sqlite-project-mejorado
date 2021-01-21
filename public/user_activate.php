@@ -35,11 +35,6 @@ exit;
  */
 function activateUserAccount($useremail, $activation_key)
 {
-    $q = 'UPDATE
-	        user
-		  SET activation = "activated"
-		  WHERE (user_email = ?
-		  AND activation = ?);';
-
+    $q = 'UPDATE user SET activation = "activated" WHERE (user_email = ? AND activation = ?);';
     return Db::query($q, $useremail, $activation_key);
 }

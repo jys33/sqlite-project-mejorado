@@ -159,15 +159,6 @@ function createUser($user)
 
     $now = date('Y-m-d H:i:s');
 
-    return Db::query(
-        $q,
-        $user['last_name'],
-        $user['first_name'],
-        $user['user_email'],
-        $user['user_name'],
-        $user['password'],
-        $user['activation_key'],
-        $now,
-        $now
-    );
+    return Db::query($q, $user['last_name'], $user['first_name'], $user['user_email'], 
+    $user['user_name'], $user['password'], $user['activation_key'], $now, $now);
 }
